@@ -1,0 +1,274 @@
+/* 顶部导航整体 */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 64px;
+    padding: 0 40px;
+
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 左侧 Logo */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo img {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+}
+
+.navbar-logo span {
+    margin-left: 10px;
+    font-size: 22px;
+    font-weight: 700; /* 像 Healthily 那样粗一点 */
+    letter-spacing: 0.01em;
+    color: #111827; /* 近黑色 */
+}
+
+/* 中间导航菜单 */
+.navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/* 链接基础样式：黑色、无下划线 */
+.navbar-center .nav-link {
+    position: relative;
+
+    font-size: 15px;
+    font-weight: 500;
+    color: #111827;
+    text-decoration: none;
+
+    padding-bottom: 4px;
+}
+
+/*  hover 下方细线效果，模仿 Healthily */
+.navbar-center .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #111827;
+    transition: width 0.16s ease-out;
+}
+
+.navbar-center .nav-link:hover::after {
+    width: 100%;
+}
+
+/* 当前页面高亮，下划线拉满 */
+.navbar-center .nav-link.active::after {
+    width: 100%;
+}
+
+/* 保证 hover 时文字颜色略微加深 */
+.navbar-center .nav-link:hover,
+.navbar-center .nav-link.active {
+    color: #0b1120;
+}
+
+/* 右侧按钮区域 */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-button {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    padding: 6px 16px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+
+    font-family: inherit;
+}
+
+/* Sign in：白底黑边 */
+.nav-button-outline {
+    background-color: #ffffff;
+    color: #111827;
+    border-color: #d1d5db;
+}
+
+.nav-button-outline:hover {
+    border-color: #9ca3af;
+}
+
+/* Register：黑底白字 */
+.nav-button-filled {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.nav-button-filled:hover {
+    background-color: #000000;
+}
+/* 用户头像容器 */
+.user-menu-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.avatar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.avatar-btn:hover {
+    border-color: #3b82f6;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #3b82f6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+/* 🟢 Google 风格下拉菜单 */
+.google-menu {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease-out;
+    border: 1px solid #f0f0f0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.menu-email {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.menu-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.avatar-placeholder.large {
+    font-size: 32px;
+}
+
+.menu-name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 15px;
+}
+
+.manage-btn {
+    background: white;
+    border: 1px solid #dadce0;
+    color: #3c4043;
+    padding: 8px 24px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.manage-btn:hover {
+    background: #f7f8f8;
+}
+
+.menu-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sign-out-btn {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+}
+
+.sign-out-btn:hover {
+    background: #f3f4f6;
+}
+/* 小屏适配简单缩小左右 padding */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 16px;
+    }
+
+    .navbar-center {
+        gap: 18px;
+    }
+
+    .navbar-logo span {
+        font-size: 18px;
+    }
+}

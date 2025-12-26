@@ -1,0 +1,166 @@
+/* src/components/layout/Footer.css */
+
+.footer {
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
+    margin-top: 40px;
+
+    /* 新增：设置吸附对齐方式 */
+    /* 使用 end 表示让页脚的底部与屏幕底部对齐，
+       这样在长页面中可以自然露出页脚，而不会强制留白 */
+    scroll-snap-align: end;
+}
+
+.footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+/* 左侧：logo + 文案 */
+.footer-left {
+    display: flex;
+    align-items: center;   /* 关键：让文本和 logo 纵向居中对齐 */
+    gap: 20px;             /* 稍微拉开一点距离，看起来更舒服 */
+}
+.footer-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 控制 logo 大小，不拉伸变形 */
+.footer-logo-img {
+    height: 80px;        /* 想再大一点可以改成 80 或 90 */
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-project-text {
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* 关键：让三行文字在整个高度里居中 */
+}
+
+.footer-project-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.footer-project-tagline {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 6px;
+}
+
+.footer-project-feedback {
+    font-size: 13px;
+    color: #2563eb;
+}
+
+/* 右侧：成员 2×2 网格 */
+.footer-right {
+    flex: 1;
+}
+
+.footer-column-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.footer-members-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 32px;
+}
+
+.footer-member-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.footer-member-line {
+    font-size: 13px;
+    color: #4b5563;
+}
+
+/* 底部小字版权 */
+.footer-bottom {
+    border-top: 1px solid #e5e7eb;
+    font-size: 12px;
+    color: #9ca3af;
+    text-align: center;
+    padding: 8px 12px 10px;
+}
+/* 🟢 更新 footer-bottom 样式 */
+.footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+    /* 使用 Flex 让版权信息和链接左右分开，或者居中排列 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* 如果屏幕够宽，让它们左右对齐 */
+@media (min-width: 768px) {
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-legal-links a {
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-legal-links a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.footer-separator {
+    color: #d1d5db;
+    font-size: 0.8rem;
+}
+
+/* 手机自适应：上下堆叠 + 成员改成一列 */
+@media (max-width: 768px) {
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .footer-logo-img {
+        height: 48px;
+    }
+
+    .footer-members-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}

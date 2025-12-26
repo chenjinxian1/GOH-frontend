@@ -1,0 +1,401 @@
+/* src/pages/HomePage.css */
+
+/* =========================
+   通用布局 & 滚动吸附
+   ========================= */
+
+.home-page {
+    height: calc(100vh - 64px);
+    width: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background-color: #f8fbff;
+}
+
+.home-scroll { width: 100%; }
+
+.home-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: 0 4vw;
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* =========================
+   1. Hero Section
+   ========================= */
+.home-section.hero {
+    height: 100vh;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+}
+
+.hero-search {
+    margin: 0 auto;
+    max-width: 700px;
+    width: 100%;
+    height: 60px;
+    border-radius: 999px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 8px 0 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s;
+}
+
+.hero-search:focus-within { transform: scale(1.02); }
+
+.hero-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+.hero-search button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background-color: #111827;
+    color: #ffffff;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.hero-search button:hover { background-color: #000; }
+
+/* =========================
+   2. Articles Section (双栏滑动)
+   ========================= */
+
+.home-section.articles {
+    background-color: #ffffff;
+    justify-content: center;
+    /* 🟢 修改点 1：增大与上方视频区域的间距 */
+    /* 将 padding-top 从 60px 增加到 120px (或更大，如 150px) */
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+.articles-inner {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    /* 🟢 修改点 2：减少两个板块之间的间距 */
+    /* 将 gap 从 120px 减小到 50px (让它们更紧凑) */
+    gap: 50px;
+}
+
+.articles-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px; /* 标题和卡片间距微调 */
+    padding: 0 5px;
+}
+
+.articles-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+}
+
+.view-all-btn {
+    border: none;
+    background: none;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.view-all-btn:hover { text-decoration: underline; }
+
+/* 轮播容器 */
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* 卡片滑动轨道 */
+.card-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 10px 5px 20px 5px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.card-carousel::-webkit-scrollbar { display: none; }
+
+/* 左右箭头按钮 */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 24px;
+    color: #374151;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.nav-arrow:hover {
+    background-color: #f9fafb;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    color: #000;
+}
+
+.left-arrow { left: -24px; }
+.right-arrow { right: -24px; }
+
+/* 卡片样式 */
+.article-card {
+    flex: 0 0 280px;
+    min-width: 280px;
+    height: 380px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-wrapper {
+    height: 160px;
+    background: #f3f4f6;
+    overflow: hidden;
+}
+
+.card-image-wrapper img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.article-card:hover .card-image-wrapper img {
+    transform: scale(1.05);
+}
+
+.card-image-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+}
+
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.card-tags { margin-bottom: 8px; }
+.tag-category {
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-summary {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-footer {
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: auto;
+}
+
+.read-more-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.no-data {
+    color: #9ca3af;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* =========================
+   3. Data Visualization
+   ========================= */
+
+.home-section.dataviz {
+    background-color: #f8fbff;
+    align-items: center;
+    border-top: 1px solid #f0f0f0;
+}
+
+.dataviz-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.dataviz-image-wrap {
+    flex: 1;
+    max-width: 500px;
+}
+
+.dataviz-image-wrap img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+}
+
+.dataviz-text { flex: 1; }
+
+.dataviz-text h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.dataviz-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    color: #4b5563;
+}
+
+.dataviz-button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border-radius: 999px;
+    border: none;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    transition: all 0.2s;
+}
+
+.dataviz-button:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+}
+
+/* 响应式适配 */
+@media (max-width: 900px) {
+    .dataviz-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .dataviz-image-wrap { margin-bottom: 30px; }
+}
+
+@media (max-width: 600px) {
+    .nav-arrow { width: 36px; height: 36px; font-size: 18px; }
+    .left-arrow { left: -10px; }
+    .right-arrow { right: -10px; }
+    .articles-inner { gap: 60px; } /* 移动端保持较小间距 */
+}

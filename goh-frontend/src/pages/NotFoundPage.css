@@ -1,0 +1,23 @@
+.notfound-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 48px 16px 64px;
+    text-align: center;
+}
+
+.notfound-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.notfound-text {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+
+.notfound-link {
+    font-size: 14px;
+    color: #2563eb;
+}

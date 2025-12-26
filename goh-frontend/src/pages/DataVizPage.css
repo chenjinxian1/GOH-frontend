@@ -1,0 +1,179 @@
+/* src/pages/DataVizPage.css */
+
+.dataviz-page {
+    background-color: #f8fbff;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 顶部标题区域 */
+.dataviz-header {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 900px;
+}
+
+.dataviz-title {
+    font-size: 2.5rem;
+    /* 🟢 修改点：标题改为纯黑 */
+    color: #000000;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.dataviz-subtitle {
+    /* 🟢 修改点：副标题改为纯黑 (或极深灰) */
+    color: #000000;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 选项卡容器 */
+.dataviz-tabs-container {
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dataviz-tabs {
+    background: white;
+    padding: 6px;
+    border-radius: 999px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    display: inline-flex;
+    gap: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.dataviz-tab-btn {
+    border: none;
+    background: transparent;
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    /* 🟢 修改点：按钮文字改为纯黑 */
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dataviz-tab-btn:hover {
+    color: #000000;
+    background-color: #f1f5f9;
+}
+
+.dataviz-tab-btn.active {
+    /* 激活状态：保持深色背景，文字反白，或者你可以改成黑色背景白色文字 */
+    background-color: #000000;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 内容主体 */
+.dataviz-content {
+    width: 100%;
+    /* 🟢 修改点：宽度大幅增加 (原 1000px -> 1400px) */
+    max-width: 1400px;
+}
+
+.dataviz-info-card {
+    margin-bottom: 20px;
+    text-align: center;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.dataviz-info-card h2 {
+    /* 🟢 修改点：卡片标题改为纯黑 */
+    color: #000000;
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.dataviz-info-card p {
+    /* 🟢 修改点：说明文字改为纯黑 */
+    color: #000000;
+}
+
+/* 图表外部容器 */
+.dataviz-frame-wrapper {
+    position: relative;
+    width: 100%;
+    /* 🟢 修改点：高度大幅增加 (原 600px -> 800px) */
+    /* 你也可以设为 85vh 让它几乎占满屏幕高度 */
+    height: 800px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.dataviz-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* 加载动画遮罩 */
+.dataviz-loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    color: #64748b;
+    gap: 15px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    /* 🟢 修改点：加载圈改为黑色风格 */
+    border-top-color: #000000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dataviz-source-note {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.dataviz-source-note a {
+    color: #64748b;
+    text-decoration: underline;
+}
+
+/* 移动端适配 */
+@media (max-width: 640px) {
+    .dataviz-title { font-size: 1.8rem; }
+    /* 手机上稍微矮一点，否则太长 */
+    .dataviz-frame-wrapper { height: 500px; }
+    .dataviz-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 12px;
+    }
+}

@@ -1,0 +1,38 @@
+/* src/index.css */
+
+html {
+  /* 关键：不要锁死 height: 100%，让它自然生长 */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f7f8fb;
+  color: #111827;
+
+  /* 关键：确保 body 至少有一屏高，但不要锁死 */
+  min-height: 100vh;
+
+  /* 关键：删除 scroll-snap-type，防止强制吸附到底部 */
+  /* scroll-snap-type: y mandatory;  <-- 一定要删掉或注释掉这行 */
+}
+
+#root {
+  width: 100%;
+  /* 确保根容器也能撑开 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 布局修正：让 main 撑开剩余空间，把 footer 挤到底部 */
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}

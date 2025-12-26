@@ -1,0 +1,155 @@
+/* src/pages/ArticleDetailPage.css */
+
+/* 1. 页面整体容器 */
+.article-detail-page {
+    max-width: 800px; /* 限制最大宽度，模仿博客阅读体验 */
+    margin: 0 auto;
+    padding: 40px 24px 80px 24px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1f2937;
+}
+
+/* 2. 返回按钮 */
+.back-btn {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.back-btn:hover {
+    color: #111827;
+}
+
+/* 3. 文章头部信息 */
+.article-header {
+    margin-bottom: 32px;
+    text-align: left; /* 左对齐 */
+}
+
+/* 分类标签 (蓝色风格) */
+.article-category-tag {
+    display: inline-block;
+    background-color: #eff6ff; /* 浅蓝背景 */
+    color: #2563eb;          /* 深蓝文字 */
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+/* 文章标题 */
+.article-title {
+    font-size: 2.5rem; /* 大号标题 */
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    margin: 0 0 16px 0;
+}
+
+/* 元数据 (日期、阅读时间) */
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: #6b7280;
+}
+
+.meta-icon {
+    margin-right: 6px;
+}
+
+/* 4. 顶部大图 (Hero Image) */
+.article-hero-image {
+    width: 100%;
+
+    /* 🟢 修改 1：高度改为 auto，取消 max-height 限制 */
+    height: auto;
+    max-height: none; /* 关键！允许图片无限延伸 */
+
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    /* 可选：给个淡背景，防止透明图片在白底上看不清 */
+    background-color: #f9fafb;
+}
+
+.article-hero-image img {
+    width: 100%;
+
+    /* 🟢 修改 2：高度自动，保持原始比例 */
+    height: auto;
+
+    /* 🟢 修改 3：移除 cover，改用 default (无需 object-fit) */
+    display: block;
+}
+/* 5. Markdown 内容排版优化 (关键部分) */
+.article-content {
+    font-size: 1.125rem; /* 18px 正文，易于阅读 */
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* 针对 Markdown 生成的标签进行样式重置 */
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+    color: #111827;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.article-content h2 { font-size: 1.8rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; }
+.article-content h3 { font-size: 1.4rem; }
+
+.article-content p {
+    margin-bottom: 24px;
+}
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 24px;
+    padding-left: 24px;
+}
+
+.article-content li {
+    margin-bottom: 8px;
+}
+
+.article-content strong {
+    color: #111827;
+    font-weight: 700;
+}
+
+.article-content blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 20px;
+    margin: 24px 0;
+    font-style: italic;
+    color: #4b5563;
+    background: #f9fafb;
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+
+/* 手机适配 */
+@media (max-width: 640px) {
+    .article-detail-page { padding: 24px 16px; }
+    .article-title { font-size: 1.8rem; }
+}

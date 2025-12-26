@@ -1,0 +1,76 @@
+/* src/pages/LegalPages.css */
+.legal-page-container {
+    background-color: #f9fafb;
+    min-height: 100vh;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.legal-content {
+    background: white;
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.legal-content h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 20px;
+}
+
+.last-updated {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.legal-content section {
+    margin-bottom: 30px;
+}
+
+.legal-content h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e3a8a; /* 你的主题深蓝 */
+    margin-bottom: 12px;
+}
+
+.legal-content p, .legal-content li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.legal-content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.legal-content li {
+    margin-bottom: 6px;
+}
+
+/* 红色警告区域样式 */
+.critical-warning {
+    background-color: #fef2f2;
+    border-left: 5px solid #ef4444;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.critical-warning h2 {
+    color: #dc2626;
+}
+
+@media (max-width: 640px) {
+    .legal-content { padding: 20px; }
+}
