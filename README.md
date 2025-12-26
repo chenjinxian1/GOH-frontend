@@ -2,7 +2,6 @@
 
 **Guardians of Health** is a comprehensive, modern web application designed to provide accessible health education, disease information, and AI-powered assistance. Built with React, TypeScript, and Firebase, it serves as a reliable hub for medical knowledge and data visualization.
 
-![Project Banner](public/banner-placeholder.png) 
 ## 🌟 Key Features
 
 ### 1. 🧠 AI Health Assistant
@@ -15,10 +14,9 @@
 - **Responsive Grid Layout:** Beautiful card-based design with "Hero" images.
 
 ### 3. 🦠 Disease Information Encyclopedia
-- **Comprehensive Database:** Detailed information on Infectious Diseases, Chronic Conditions, Genetic Disorders, and Viral Infections.
-- **Smart Search & Filter:** Users can search by keywords or filter by specific medical categories.
-- **Rich Content Display:** Full-width infographic support and Markdown rendering for detailed medical explanations.
-- **Categorized Insights:** Distinct sections for symptoms, prevention, and treatment.
+- **Comprehensive Database:** Detailed information on Infectious Diseases, Chronic Conditions, Genetic Disorders, Viral Infections, and more.
+- **Smart Search & Filter:** Users can search by keywords or filter by specific medical categories using capsule-style buttons.
+- **Rich Content Display:** Supports full-width images (infographics) and Markdown rendering for detailed medical explanations without cropping.
 
 ### 4. 📊 Data Visualization
 - Interactive charts and graphs to visualize health trends and statistics.
@@ -31,11 +29,11 @@
 ## 🛠️ Tech Stack
 
 * **Frontend:** React 18, TypeScript, Vite
-* **Styling:** CSS Modules, Responsive Design (Mobile-first approach)
+* **Styling:** CSS Modules / Standard CSS, Responsive Design (Mobile-first approach)
 * **Routing:** React Router DOM v6
 * **Backend / Database:** Firebase (Firestore, Authentication)
-* **Rendering:** React Markdown (for rich text content)
-* **Icons & Assets:** SVG Icons, Custom Infographics
+* **Rendering:** React Markdown (for rich text content in articles)
+* **State Management:** React Hooks (useState, useEffect, useContext)
 
 ## 🚀 Getting Started
 
@@ -60,16 +58,13 @@ Follow these steps to run the project locally on your machine.
 
 3.  **Configure Firebase**
     * Create a file named `config.ts` (or `.env`) in your `src/firebase` folder.
-    * Add your Firebase configuration keys:
+    * Add your Firebase configuration keys (make sure not to commit sensitive keys to public repos):
     ```typescript
-    // src/firebase/config.ts
+    // src/firebase/config.ts example
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      // ... other config keys
     };
     export default firebaseConfig;
     ```
@@ -83,3 +78,14 @@ Follow these steps to run the project locally on your machine.
     Visit `http://localhost:5173` to view the app.
 
 ## 📂 Project Structure
+
+A high-level overview of the project's core structure:
+GOH-frontend/ ├── src/ │ ├── assets/ # Global static assets (images, fonts) │ ├── components/ # Reusable UI components │ │ └── layout/ # Navbar, Footer components │ ├── firebase/ # Firebase configuration and initialization │ ├── pages/ # Main application routes/pages │ │ ├── ArticleDetailPage.tsx # Shared detail view for Health & Disease articles │ │ ├── ArticleDetailPage.css # Shared styles for article details (centered, markdown) │ │ ├── DiseaseSearchPage.tsx # Disease Information listing page with filters │ │ ├── DiseaseSearchPage.css # Styles for disease info cards │ │ ├── HealthSciencePage.tsx # Health Knowledge listing page │ │ ├── HealthSciencePage.css # Styles for health knowledge cards │ │ ├── HomePage.tsx # Landing page │ │ ├── AIAssistantPage.tsx # AI Chat interface │ │ └── ... (Other pages like Auth, Profile, DataViz) │ ├── App.tsx # Main application component & Routing configuration │ ├── index.css # Global styles and resets │ └── main.tsx # Entry point rendering the React app ├── public/ # Public static files (favicon, etc.) ├── index.html # HTML template ├── tsconfig.json # TypeScript configuration └── README.md # Project documentation
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+Distributed under the MIT License.
