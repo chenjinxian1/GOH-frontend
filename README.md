@@ -79,8 +79,38 @@ Follow these steps to run the project locally on your machine.
 
 ## 📂 Project Structure
 
-A high-level overview of the project's core structure:
-GOH-frontend/ ├── src/ │ ├── assets/ # Global static assets (images, fonts) │ ├── components/ # Reusable UI components │ │ └── layout/ # Navbar, Footer components │ ├── firebase/ # Firebase configuration and initialization │ ├── pages/ # Main application routes/pages │ │ ├── ArticleDetailPage.tsx # Shared detail view for Health & Disease articles │ │ ├── ArticleDetailPage.css # Shared styles for article details (centered, markdown) │ │ ├── DiseaseSearchPage.tsx # Disease Information listing page with filters │ │ ├── DiseaseSearchPage.css # Styles for disease info cards │ │ ├── HealthSciencePage.tsx # Health Knowledge listing page │ │ ├── HealthSciencePage.css # Styles for health knowledge cards │ │ ├── HomePage.tsx # Landing page │ │ ├── AIAssistantPage.tsx # AI Chat interface │ │ └── ... (Other pages like Auth, Profile, DataViz) │ ├── App.tsx # Main application component & Routing configuration │ ├── index.css # Global styles and resets │ └── main.tsx # Entry point rendering the React app ├── public/ # Public static files (favicon, etc.) ├── index.html # HTML template ├── tsconfig.json # TypeScript configuration └── README.md # Project documentation
+```text
+GOH-frontend/
+├── public/                  # Static assets (favicon, manifest, etc.)
+├── src/
+│   ├── assets/              # Global images and styles
+│   ├── components/          # Reusable UI components
+│   │   ├── layout/          # Navbar, Footer
+│   │   └── ...
+│   ├── firebase/            # Firebase configuration (config.ts)
+│   ├── pages/               # Application Routes/Pages
+│   │   ├── AIAssistantPage.tsx    # AI Chatbot interface
+│   │   ├── ArticleDetailPage.tsx  # Shared detail view for articles
+│   │   ├── AuthPage.tsx           # Login/Register logic
+│   │   ├── CreateArticlePage.tsx  # Admin content creation
+│   │   ├── DataVizPage.tsx        # Data visualization charts
+│   │   ├── DiseaseDetailPage.tsx  # Specific disease details
+│   │   ├── DiseaseSearchPage.tsx  # Disease list & filters
+│   │   ├── FeedbackPage.tsx       # User feedback form
+│   │   ├── HealthSciencePage.tsx  # Health articles list
+│   │   ├── HomePage.tsx           # Landing page
+│   │   ├── LegalPage.tsx          # Legal notices
+│   │   ├── NotFoundPage.tsx       # 404 Error page
+│   │   ├── PrivacyPage.tsx        # Privacy policy
+│   │   ├── ProfilePage.tsx        # User profile settings
+│   │   └── ...
+│   ├── App.tsx              # Main Routing configuration
+│   ├── main.tsx             # Entry point
+│   └── index.css            # Global CSS
+├── index.html               # HTML template
+├── package.json             # Dependencies and scripts
+├── tsconfig.json            # TypeScript configuration
+└── README.md                # Project documentation
 
 ## 🤝 Contributing
 
