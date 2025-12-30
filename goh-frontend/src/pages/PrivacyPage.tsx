@@ -1,6 +1,6 @@
 // src/pages/PrivacyPage.tsx
 import React from 'react';
-import './LegalPages.css'; // 稍后创建这个 CSS
+import './LegalPages.css';
 
 const PrivacyPage: React.FC = () => {
     return (

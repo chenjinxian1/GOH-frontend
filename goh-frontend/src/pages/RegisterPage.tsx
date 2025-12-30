@@ -2,6 +2,6 @@
 import LoginPage from './LoginPage';
 
 export default function RegisterPage() {
-    // 复用 LoginPage 的结构，但默认显示注册面板（initialSignUp={true}）
+    // Reuse the LoginPage structure, but display the registration panel by default (initialSignUp={true})
     return <LoginPage initialSignUp={true} />;
 }

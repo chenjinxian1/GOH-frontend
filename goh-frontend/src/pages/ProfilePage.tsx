@@ -5,20 +5,19 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { updatePassword } from 'firebase/auth';
 import { db } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
-// 🟢 引入刚刚创建的精美样式
 import './ProfilePage.css';
 
 export default function ProfilePage() {
     const { currentUser, userProfile, refreshProfile } = useAuth();
     const navigate = useNavigate();
 
-    // 状态管理
+    // State management
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
 
-    // 密码状态
+    // Password states
     const [newPass, setNewPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
@@ -34,7 +33,7 @@ export default function ProfilePage() {
         }
     }, [currentUser, userProfile, navigate]);
 
-    // 获取头像首字母
+    // Get initials for the avatar placeholder
     const getInitials = () => {
         return name ? name.charAt(0).toUpperCase() : 'U';
     };
@@ -78,9 +77,9 @@ export default function ProfilePage() {
 
     return (
         <div className="profile-page-container">
-            <h1 className="page-title">User Settings</h1>
+            <h1 className="page-title">Manage Account</h1>
 
-            {/* 1. 顶部：个人概览卡片 (新增) */}
+            {/* 1. Profile Overview */}
             <div className="profile-header-card">
                 {userProfile.photoURL ? (
                     <img src={userProfile.photoURL} alt="Avatar" className="header-avatar" />
@@ -94,7 +93,7 @@ export default function ProfilePage() {
                 </div>
             </div>
 
-            {/* 2. 基本资料设置 */}
+            {/* 2. Personal Information Settings */}
             <div className="section-card">
                 <div className="card-header">
                     <h3>Personal Information</h3>
@@ -164,7 +163,7 @@ export default function ProfilePage() {
                 )}
             </div>
 
-            {/* 3. 安全设置 */}
+            {/* 3. Security Settings */}
             <div className="section-card">
                 <div className="card-header">
                     <h3>Security & Password</h3>

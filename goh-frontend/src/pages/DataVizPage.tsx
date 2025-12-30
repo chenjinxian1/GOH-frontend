@@ -80,7 +80,7 @@ export default function DataVizPage() {
                     <p>{activeViz.description}</p>
                 </div>
 
-                {/* 图表容器：去掉了遮罩 div */}
+                {/* Chart Container: Removed the overlay div */}
                 <div className="dataviz-frame-wrapper">
                     {isLoading && (
                         <div className="dataviz-loading-overlay">

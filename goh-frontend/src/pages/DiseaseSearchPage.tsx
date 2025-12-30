@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { FavoriteButton } from '../components/FavoriteButton';
 import './DiseaseSearchPage.css';
 
 interface DiseaseItem {
@@ -16,13 +17,11 @@ interface DiseaseItem {
 }
 
 export default function DiseaseSearchPage() {
-    // 1. 定义状态
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('All'); // 默认选中 'All'
+    const [selectedCategory, setSelectedCategory] = useState('All');
     const [diseases, setDiseases] = useState<DiseaseItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // 2. 定义分类列表 (根据你的截图 image_a23c61.png)
     const categories = [
         'All',
         'Infectious Diseases',
@@ -52,15 +51,10 @@ export default function DiseaseSearchPage() {
         fetchDiseases();
     }, []);
 
-    // 3. 升级筛选逻辑：同时匹配“搜索词”和“分类”
     const filteredDiseases = diseases.filter(d => {
-        // 搜索匹配 (标题 或 摘要)
         const matchesSearch = (d.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
             (d.summary?.toLowerCase() || '').includes(searchTerm.toLowerCase());
-
-        // 分类匹配 (如果是 'All' 则匹配所有，否则必须精确匹配 category 字段)
         const matchesCategory = selectedCategory === 'All' || d.category === selectedCategory;
-
         return matchesSearch && matchesCategory;
     });
 
@@ -71,7 +65,6 @@ export default function DiseaseSearchPage() {
                 <p className="science-subtitle">Comprehensive guide to infectious diseases, prevention, and treatment.</p>
 
                 <div className="science-controls">
-                    {/* 搜索框 */}
                     <div className="search-bar">
                         <input
                             type="text"
@@ -81,7 +74,6 @@ export default function DiseaseSearchPage() {
                         />
                     </div>
 
-                    {/* 🟢 新增：分类筛选按钮组 (完全复刻 Health Knowledge 样式) */}
                     <div className="category-filters">
                         {categories.map((cat) => (
                             <button
@@ -104,14 +96,15 @@ export default function DiseaseSearchPage() {
                 ) : (
                     <div className="articles-grid">
                         {filteredDiseases.length > 0 ? filteredDiseases.map((item) => (
-                            <Link to={`/disease/${item.id}`} key={item.id} className="article-card-link">
+                            <div key={item.id} className="article-card-wrapper">
+
+                                {/* 1. Card Content (No longer wrapped by Link directly) */}
                                 <article className="science-article-card">
                                     <div className="article-image-wrapper">
                                         <img
                                             src={item.imageUrl || 'https://via.placeholder.com/400x250?text=Disease+Info'}
                                             alt={item.title}
                                         />
-                                        {/* 显示分类徽章 */}
                                         <span className="article-category-badge">
                                             {item.category || "General"}
                                         </span>
@@ -127,7 +120,26 @@ export default function DiseaseSearchPage() {
                                         <span className="read-more-text">Learn more →</span>
                                     </div>
                                 </article>
-                            </Link>
+
+                                {/* 🟢 2. Overlay Link (Key to fixing the click issue) */}
+                                {/* This Link stretches across the parent container with z-index: 1 */}
+                                <Link
+                                    to={`/disease/${item.id}`}
+                                    className="card-overlay-link"
+                                    aria-label={`Read more about ${item.title}`}
+                                />
+
+                                {/* 3. Floating Button (z-index: 10, higher than the link to remain clickable) */}
+                                <div className="floating-fav-btn">
+                                    <FavoriteButton
+                                        articleId={item.id}
+                                        title={item.title}
+                                        type="disease"
+                                        imageUrl={item.imageUrl}
+                                        category={item.category}
+                                    />
+                                </div>
+                            </div>
                         )) : (
                             <div className="no-results">
                                 <p>No diseases found matching "{searchTerm}" in {selectedCategory}.</p>

@@ -1,15 +1,16 @@
 /* src/App.css */
 
 #root {
-  /* 确保根容器占满全屏，无边距限制 */
+  /* Ensure the root container fills the entire screen with no margin restrictions */
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  text-align: center; /* 你可以选择是否保留居中，如果不想要文字默认居中可以去掉 */
+  /* Optional: keeps the default text alignment. Remove if you don't want global centering. */
+  text-align: center;
 }
 
-/* 保持 logo 动画样式 */
+/* Maintain logo animation styles */
 .logo {
   height: 6em;
   padding: 1.5em;

@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-/* 顶部标题区域 */
+/* Top Header Area */
 .dataviz-header {
     text-align: center;
     margin-bottom: 30px;
@@ -18,20 +18,20 @@
 
 .dataviz-title {
     font-size: 2.5rem;
-    /* 🟢 修改点：标题改为纯黑 */
+    /* 🟢 Modification: Title changed to pure black */
     color: #000000;
     margin-bottom: 12px;
     font-weight: 800;
 }
 
 .dataviz-subtitle {
-    /* 🟢 修改点：副标题改为纯黑 (或极深灰) */
+    /* 🟢 Modification: Subtitle changed to pure black (or very dark gray) */
     color: #000000;
     font-size: 1.1rem;
     line-height: 1.6;
 }
 
-/* 选项卡容器 */
+/* Tabs Container */
 .dataviz-tabs-container {
     margin-bottom: 30px;
     width: 100%;
@@ -56,7 +56,7 @@
     border-radius: 999px;
     font-size: 0.95rem;
     font-weight: 600;
-    /* 🟢 修改点：按钮文字改为纯黑 */
+    /* 🟢 Modification: Button text changed to pure black */
     color: #000000;
     cursor: pointer;
     transition: all 0.2s;
@@ -68,16 +68,16 @@
 }
 
 .dataviz-tab-btn.active {
-    /* 激活状态：保持深色背景，文字反白，或者你可以改成黑色背景白色文字 */
+    /* Active State: Dark background with white text */
     background-color: #000000;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 内容主体 */
+/* Main Content Body */
 .dataviz-content {
     width: 100%;
-    /* 🟢 修改点：宽度大幅增加 (原 1000px -> 1400px) */
+    /* 🟢 Modification: Width significantly increased (Original 1000px -> 1400px) */
     max-width: 1400px;
 }
 
@@ -88,23 +88,23 @@
 }
 
 .dataviz-info-card h2 {
-    /* 🟢 修改点：卡片标题改为纯黑 */
+    /* 🟢 Modification: Card title changed to pure black */
     color: #000000;
     margin-bottom: 8px;
     font-size: 1.5rem;
 }
 
 .dataviz-info-card p {
-    /* 🟢 修改点：说明文字改为纯黑 */
+    /* 🟢 Modification: Description text changed to pure black */
     color: #000000;
 }
 
-/* 图表外部容器 */
+/* External Chart Wrapper */
 .dataviz-frame-wrapper {
     position: relative;
     width: 100%;
-    /* 🟢 修改点：高度大幅增加 (原 600px -> 800px) */
-    /* 你也可以设为 85vh 让它几乎占满屏幕高度 */
+    /* 🟢 Modification: Height significantly increased (Original 600px -> 800px) */
+    /* You could also set this to 85vh to fill most of the screen height */
     height: 800px;
 
     background: white;
@@ -121,7 +121,7 @@
     display: block;
 }
 
-/* 加载动画遮罩 */
+/* Loading Animation Overlay */
 .dataviz-loading-overlay {
     position: absolute;
     inset: 0;
@@ -139,7 +139,7 @@
     width: 40px;
     height: 40px;
     border: 3px solid #e2e8f0;
-    /* 🟢 修改点：加载圈改为黑色风格 */
+    /* 🟢 Modification: Loading spinner changed to black style */
     border-top-color: #000000;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -166,10 +166,10 @@
     text-decoration: underline;
 }
 
-/* 移动端适配 */
+/* Mobile Adaptation */
 @media (max-width: 640px) {
     .dataviz-title { font-size: 1.8rem; }
-    /* 手机上稍微矮一点，否则太长 */
+    /* Height reduced for mobile screens */
     .dataviz-frame-wrapper { height: 500px; }
     .dataviz-tabs {
         flex-wrap: wrap;

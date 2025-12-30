@@ -13,7 +13,7 @@ export default function CreateArticlePage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [section, setSection] = useState<'science' | 'disease'>('science');
 
-    // 分类数据
+    // Category data
     const scienceCategories = ['General Health', 'Mental Health', 'Nutrition', 'Disease Prevention'];
     const diseaseCategories = ['Infectious Diseases', 'Chronic Conditions', 'Genetic Disorders', 'Viral Infections', 'Other'];
     const currentCategories = section === 'science' ? scienceCategories : diseaseCategories;
@@ -74,8 +74,8 @@ export default function CreateArticlePage() {
         }
     };
 
-    // 🟢 关键修改：获取头像首字母逻辑
-    // 优先使用 displayName (昵称)，如果没有则使用 email 前缀
+    // 🟢 Key Fix: Logic for getting avatar initials
+    // Priority given to displayName, then email prefix
     const displayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || "G";
     const userInitial = displayName.charAt(0).toUpperCase();
 
@@ -92,7 +92,7 @@ export default function CreateArticlePage() {
                 </div>
 
                 <div className="header-right">
-                    {/* 🟢 修改：删除了文字问候语，只保留头像，与主页保持一致 */}
+                    {/* 🟢 Modified: Removed text greeting, kept avatar only to maintain consistency with the homepage */}
                     <div className="user-avatar-circle" title={displayName}>
                         {userInitial}
                     </div>

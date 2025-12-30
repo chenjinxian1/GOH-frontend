@@ -1,94 +1,148 @@
-// src/pages/DiseaseDetailPage.tsx
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+// src/pages/DiseaseSearchPage.tsx
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import ReactMarkdown from 'react-markdown';
+import { FavoriteButton } from '../components/FavoriteButton';
+import './DiseaseSearchPage.css';
 
-// 🟢 引入刚刚更新的 CSS
-import './ArticleDetailPage.css';
+interface DiseaseItem {
+    id: string;
+    title: string;
+    summary: string;
+    imageUrl?: string;
+    readTime?: string;
+    category?: string;
+    publishDate?: string;
+}
 
-export default function DiseaseDetailPage() {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
-    const [article, setArticle] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+export default function DiseaseSearchPage() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [diseases, setDiseases] = useState<DiseaseItem[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const categories = [
+        'All',
+        'Infectious Diseases',
+        'Chronic Conditions',
+        'Genetic Disorders',
+        'Viral Infections',
+        'Other'
+    ];
 
     useEffect(() => {
-        const fetchDetail = async () => {
-            if (!id) return;
+        const fetchDiseases = async () => {
             try {
-                // 连接 Disease_Information 集合
-                const docRef = doc(db, 'Disease_Information', id);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    setArticle(docSnap.data());
-                } else {
-                    console.log("No such document!");
-                }
+                // 🟢 Critical: Use 'Disease_Information' collection
+                const q = query(collection(db, "Disease_Information"), orderBy("publishDate", "desc"));
+                const querySnapshot = await getDocs(q);
+                const data = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                })) as DiseaseItem[];
+                setDiseases(data);
             } catch (error) {
-                console.error("Error fetching details:", error);
+                console.error("Error fetching diseases:", error);
             } finally {
-                setLoading(false);
+                setIsLoading(false);
             }
         };
 
-        fetchDetail();
-    }, [id]);
+        fetchDiseases();
+    }, []);
 
-    if (loading) return <div style={{padding:'60px', textAlign:'center', color:'#6b7280'}}>Loading content...</div>;
-
-    if (!article) return (
-        <div style={{padding:'60px', textAlign:'center'}}>
-            <h2>Article not found</h2>
-            <button className="back-btn" onClick={() => navigate(-1)} style={{margin:'20px auto'}}>
-                Go Back
-            </button>
-        </div>
-    );
+    // Filter Logic
+    const filteredDiseases = diseases.filter(d => {
+        const matchesSearch = (d.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+            (d.summary?.toLowerCase() || '').includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'All' || d.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
 
     return (
-        <div className="article-detail-page">
-            {/* 1. 返回按钮 */}
-            <button className="back-btn" onClick={() => navigate(-1)}>
-                ← Back to Diseases
-            </button>
+        <div className="science-page">
+            <header className="science-header">
+                <h1 className="science-title">Disease Information</h1>
+                <p className="science-subtitle">Comprehensive guide to infectious diseases, prevention, and treatment.</p>
 
-            <article>
-                {/* 2. 头部信息：标签、标题、元数据 */}
-                <header className="article-header">
-                    <span className="article-category-tag">
-                        {article.category || "Infectious Disease"}
-                    </span>
-
-                    <h1 className="article-title">{article.title}</h1>
-
-                    <div className="article-meta">
-                        {/* 日历图标 */}
-                        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
-                        <span>{article.publishDate || "2025-01-01"}</span>
-
-                        <span style={{margin:'0 8px'}}>•</span>
-
-                        {/* 时钟图标 */}
-                        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-                        <span>{article.readTime || "5 min read"}</span>
+                <div className="science-controls">
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search diseases (e.g. Dengue, TB)..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                     </div>
-                </header>
 
-                {/* 3. 大图 Hero Image */}
-                {article.imageUrl && (
-                    <figure className="article-hero-image">
-                        <img src={article.imageUrl} alt={article.title} />
-                    </figure>
-                )}
-
-                {/* 4. 正文内容 (支持 Markdown) */}
-                <div className="article-content">
-                    <ReactMarkdown>{article.content}</ReactMarkdown>
+                    <div className="category-filters">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                className={`filter-btn ${selectedCategory === cat ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(cat)}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </article>
+            </header>
+
+            <main className="science-content">
+                {isLoading ? (
+                    <div style={{textAlign: 'center', padding: '60px', color: '#666', fontSize: '18px'}}>
+                        🔄 Loading disease info...
+                    </div>
+                ) : (
+                    <div className="articles-grid">
+                        {filteredDiseases.length > 0 ? filteredDiseases.map((item) => (
+                            // 🟢 Wrapper for Relative Positioning (Exact same structure as Health Page)
+                            <div key={item.id} className="article-card-wrapper">
+                                <Link to={`/disease/${item.id}`} className="article-card-link">
+                                    <article className="science-article-card">
+                                        <div className="article-image-wrapper">
+                                            <img
+                                                src={item.imageUrl || 'https://via.placeholder.com/400x250?text=Disease+Info'}
+                                                alt={item.title}
+                                            />
+                                            <span className="article-category-badge">
+                                                {item.category || "General"}
+                                            </span>
+                                        </div>
+                                        <div className="article-content">
+                                            <div className="article-meta">
+                                                <span>{item.publishDate || "Unknown Date"}</span>
+                                                <span className="dot">•</span>
+                                                <span>{item.readTime || "5 min read"}</span>
+                                            </div>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.summary}</p>
+                                            <span className="read-more-text">Learn more →</span>
+                                        </div>
+                                    </article>
+                                </Link>
+
+                                {/* 🟢 Floating Favorite Button */}
+                                <div className="floating-fav-btn">
+                                    <FavoriteButton
+                                        articleId={item.id}
+                                        title={item.title}
+                                        type="disease"
+                                        imageUrl={item.imageUrl}
+                                        category={item.category}
+                                    />
+                                </div>
+                            </div>
+                        )) : (
+                            <div className="no-results">
+                                <p>No diseases found matching "{searchTerm}" in {selectedCategory}.</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </main>
         </div>
     );
 }

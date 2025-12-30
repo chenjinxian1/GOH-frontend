@@ -10,7 +10,7 @@ import {
 import { getAIResponse, type Message } from '../services/aiService';
 import './AIAssistantPage.css';
 
-// 引入 Markdown 渲染组件
+// Import Markdown rendering components
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -22,7 +22,7 @@ interface ChatSession {
     messages: Message[];
 }
 
-// 建议问题配置
+// Suggested questions configuration
 const SUGGESTIONS = [
     { icon: "🤒", text: "Symptoms of Dengue" },
     { icon: "🥗", text: "Healthy Diet Plan" },
@@ -41,7 +41,7 @@ export default function AIAssistantPage() {
     const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
     const [currentChatId, setCurrentChatId] = useState<string | null>(null);
 
-    // 存储用户位置
+    // Store user location
     const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
     const [locationError, setLocationError] = useState<string>("");
 
@@ -52,7 +52,7 @@ export default function AIAssistantPage() {
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const hasAutoSentRef = useRef(false);
 
-    // 1. 获取浏览器 GPS 定位
+    // 1. Get browser GPS location
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -72,7 +72,7 @@ export default function AIAssistantPage() {
         }
     }, []);
 
-    // 2. 监听历史记录
+    // 2. Listen to chat history changes
     useEffect(() => {
         if (!currentUser) {
             setChatHistory([]);
@@ -93,7 +93,7 @@ export default function AIAssistantPage() {
         return () => unsubscribe();
     }, [currentUser]);
 
-    // 3. 自动滚动
+    // 3. Auto-scroll to bottom
     useEffect(() => {
         if (chatContainerRef.current) {
             const container = chatContainerRef.current;
@@ -101,7 +101,7 @@ export default function AIAssistantPage() {
         }
     }, [messages, isLoading]);
 
-    // 4. 发送消息逻辑
+    // 4. Send message logic
     const handleSendMessage = async (textOverride?: string) => {
         const textToSend = typeof textOverride === 'string' ? textOverride : input;
 
@@ -113,7 +113,7 @@ export default function AIAssistantPage() {
         }
 
         const userMsg: Message = { role: 'user', content: textToSend, timestamp: Date.now() };
-        // 先更新本地状态，防止 undefined 错误
+        // Update local state first to prevent undefined errors
         const newHistory = [...messages, userMsg];
         setMessages(newHistory);
 
@@ -126,7 +126,7 @@ export default function AIAssistantPage() {
 
             setMessages(finalMessages);
 
-            // 保存到数据库
+            // Save to database
             if (currentUser) {
                 if (currentChatId) {
                     const chatRef = doc(db, "chats", currentChatId);
@@ -150,7 +150,7 @@ export default function AIAssistantPage() {
         }
     };
 
-    // 5. 监听首页跳转过来的查询
+    // 5. Listen for queries passed from the home page
     useEffect(() => {
         if (locationState.state?.initialQuery && !hasAutoSentRef.current) {
             const query = locationState.state.initialQuery;
@@ -160,7 +160,7 @@ export default function AIAssistantPage() {
         }
     }, [locationState]);
 
-    // 聊天管理
+    // Chat management
     const handleSelectChat = (chat: ChatSession) => {
         setCurrentChatId(chat.id);
         setMessages(chat.messages);
@@ -183,7 +183,7 @@ export default function AIAssistantPage() {
         } catch (error) { console.error(error); }
     };
 
-    // 🟢 6. 构造地图 URL (核心修改：添加 &hl=en)
+    // 🟢 6. Construct Map URL (Core modification: added &hl=en)
     const mapSrc = userLocation
         ? `https://maps.google.com/maps?q=${userLocation.lat},${userLocation.lng}&z=14&output=embed&hl=en`
         : `https://maps.google.com/maps?q=clinics+near+me&z=13&output=embed&hl=en`;
@@ -196,7 +196,7 @@ export default function AIAssistantPage() {
             </header>
 
             <div className="ai-content-wrapper">
-                {/* 左侧侧边栏 */}
+                {/* Left Sidebar */}
                 <aside className="ai-sidebar">
                     <div className="sidebar-chat-section">
                         <div className="sidebar-header">
@@ -219,7 +219,7 @@ export default function AIAssistantPage() {
                             <h3>Nearby Clinics</h3>
                         </div>
                         <div className="map-container" style={{position: 'relative'}}>
-                            {/* 地图 Iframe */}
+                            {/* Map Iframe */}
                             <iframe
                                 title="Nearby Clinics"
                                 width="100%"
@@ -231,7 +231,7 @@ export default function AIAssistantPage() {
                                 loading="lazy"
                             ></iframe>
 
-                            {/* 未获取定位时的提示 */}
+                            {/* Prompt when location is not yet acquired */}
                             {!userLocation && !locationError && (
                                 <div style={{
                                     position: 'absolute', bottom: 10, left: 10, right: 10,
@@ -245,7 +245,7 @@ export default function AIAssistantPage() {
                     </div>
                 </aside>
 
-                {/* 右侧聊天主区域 */}
+                {/* Right Main Chat Area */}
                 <main className="ai-chat-main">
                     <div className="chat-messages-area" ref={chatContainerRef}>
                         {messages.map((msg, index) => (
@@ -254,7 +254,7 @@ export default function AIAssistantPage() {
                                 <div className="message-content-col">
                                     {msg.role === 'ai' && index === 0 && <div className="bot-header">Smart Doctor <span className="status-badge">ONLINE</span></div>}
 
-                                    {/* Markdown 渲染内容 */}
+                                    {/* Markdown Rendered Content */}
                                     <div className={`bubble-content ${msg.role === 'ai' ? 'markdown-body' : ''}`}>
                                         {msg.role === 'ai' ? (
                                             <ReactMarkdown
@@ -279,7 +279,7 @@ export default function AIAssistantPage() {
                     </div>
 
                     <div className="chat-input-wrapper">
-                        {/* 建议问题 */}
+                        {/* Suggested Questions */}
                         <div className="suggestions-wrapper">
                             {SUGGESTIONS.map((item, index) => (
                                 <button key={index} className="suggestion-chip" onClick={() => handleSendMessage(item.text)} disabled={isLoading}>
@@ -288,7 +288,7 @@ export default function AIAssistantPage() {
                             ))}
                         </div>
 
-                        {/* 输入框 */}
+                        {/* Input Container */}
                         <div className="input-container">
                             <input
                                 type="text"

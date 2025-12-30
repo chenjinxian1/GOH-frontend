@@ -1,4 +1,7 @@
+// src/pages/FeedbackPage.tsx
 import { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase/config'; // Ensure this points to your correct firebase config path
 import './FeedbackPage.css';
 
 export default function FeedbackPage() {
@@ -8,68 +11,91 @@ export default function FeedbackPage() {
     const [agree, setAgree] = useState(false);
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
-    const canSubmit = message.trim().length > 0 && status !== 'submitting';
+    // Validation logic: must have message, agreed to terms, and not currently submitting
+    const canSubmit = message.trim().length > 0 && agree && status !== 'submitting';
 
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!canSubmit) return;
 
         setStatus('submitting');
 
-        // 暂时用 setTimeout 模拟后端提交
-        setTimeout(() => {
-            // 这里你以后可以改成真正的 axios.post('/api/feedback', { name, email, message, agree })
+        try {
+            // 🌟 Core Logic: Write to Firebase 🌟
+            // This automatically creates a collection named "User_Feedback" in your database
+            await addDoc(collection(db, "User_Feedback"), {
+                name: name || 'Anonymous', // Save as Anonymous if name is empty
+                email: email || 'Not provided',
+                message: message,
+                createdAt: serverTimestamp(), // Use server timestamp for accuracy
+                userAgent: navigator.userAgent // Optional: Record user agent for debugging
+            });
+
             setStatus('success');
+
+            // Clear form after successful submission
+            setName('');
+            setEmail('');
             setMessage('');
-            // name/email 根据需要决定是否清空
-        }, 800);
+            setAgree(false);
+
+            // Reset status after 3 seconds to allow re-submission
+            setTimeout(() => setStatus('idle'), 3000);
+
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            setStatus('error');
+        }
     };
 
     return (
         <div className="feedback-page">
-            <h1 className="feedback-title">User feedback</h1>
-            <p className="feedback-subtitle">
-                Tell us what works well and what we should improve. Your feedback helps us make this health assistant safer
-                and easier to use.
-            </p>
+            <header className="feedback-header">
+                <h1 className="feedback-title">We value your feedback</h1>
+                <p className="feedback-subtitle">
+                    Help us improve Guardians of Health. Your insights directly shape the future of our medical assistant.
+                </p>
+            </header>
 
             <form className="feedback-form" onSubmit={handleSubmit}>
                 <div className="feedback-row">
                     <label className="feedback-label" htmlFor="name">
-                        Name (optional)
+                        Name <span style={{fontWeight:400, color:'#9ca3af'}}>(Optional)</span>
                     </label>
                     <input
                         id="name"
                         className="feedback-input"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Your name"
+                        placeholder="Dr. Strange"
                     />
                 </div>
 
                 <div className="feedback-row">
                     <label className="feedback-label" htmlFor="email">
-                        Email (optional)
+                        Email <span style={{fontWeight:400, color:'#9ca3af'}}>(Optional)</span>
                     </label>
                     <input
                         id="email"
+                        type="email"
                         className="feedback-input"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@example.com"
+                        placeholder="doctor@example.com"
                     />
                 </div>
 
                 <div className="feedback-row">
                     <label className="feedback-label" htmlFor="message">
-                        How can we help?
+                        How can we improve? <span style={{color:'#ef4444'}}>*</span>
                     </label>
                     <textarea
                         id="message"
                         className="feedback-textarea"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Describe an issue, suggestion or general feedback..."
+                        placeholder="I found a bug on the home page..."
+                        required
                     />
                 </div>
 
@@ -81,7 +107,8 @@ export default function FeedbackPage() {
                         onChange={(e) => setAgree(e.target.checked)}
                     />
                     <label htmlFor="agree">
-                        I understand that this form is for general feedback only, not for urgent medical emergencies.
+                        I understand that this form is for product feedback only.
+                        <strong> For medical emergencies, please call your local emergency number immediately.</strong>
                     </label>
                 </div>
 
@@ -91,18 +118,18 @@ export default function FeedbackPage() {
                         className="feedback-submit-button"
                         disabled={!canSubmit}
                     >
-                        {status === 'submitting' ? 'Submitting...' : 'Submit feedback'}
+                        {status === 'submitting' ? 'Sending Feedback...' : 'Submit Feedback'}
                     </button>
 
                     {status === 'success' && (
-                        <span className="feedback-message success">
-              Thanks for your feedback!
-            </span>
+                        <div className="feedback-message success">
+                            ✅ Thank you! Your feedback has been securely saved.
+                        </div>
                     )}
                     {status === 'error' && (
-                        <span className="feedback-message error">
-              Something went wrong. Please try again later.
-            </span>
+                        <div className="feedback-message error">
+                            ❌ Something went wrong. Please check your internet connection.
+                        </div>
                     )}
                 </div>
             </form>

@@ -1,11 +1,10 @@
 // src/pages/HealthSciencePage.tsx
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './HealthSciencePage.css';
-
-// 引入 Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { FavoriteButton } from '../components/FavoriteButton';
+import './HealthSciencePage.css';
 
 interface Article {
     id: string;
@@ -23,16 +22,16 @@ export default function HealthSciencePage() {
     const [articles, setArticles] = useState<Article[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const categories = ['All', 'General Health', 'Disease Prevention', 'Mental Health', 'Nutrition'];
+
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                // 连接 'articles' 集合，获取所有文章
                 const querySnapshot = await getDocs(collection(db, 'articles'));
                 const articlesData = querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 })) as Article[];
-
                 setArticles(articlesData);
             } catch (error) {
                 console.error("Error fetching articles:", error);
@@ -40,7 +39,6 @@ export default function HealthSciencePage() {
                 setIsLoading(false);
             }
         };
-
         fetchArticles();
     }, []);
 
@@ -50,8 +48,6 @@ export default function HealthSciencePage() {
         const categoryMatch = selectedCategory === 'All' || article.category === selectedCategory;
         return (titleMatch || summaryMatch) && categoryMatch;
     });
-
-    const categories = ['All', 'General Health', 'Disease Prevention', 'Mental Health', 'Nutrition'];
 
     return (
         <div className="science-page">
@@ -90,30 +86,47 @@ export default function HealthSciencePage() {
                 ) : (
                     <div className="articles-grid">
                         {filteredArticles.length > 0 ? filteredArticles.map((article) => (
-                            <Link to={`/science/${article.id}`} key={article.id} className="article-card-link">
-                                <article className="science-article-card">
-                                    <div className="article-image-wrapper">
-                                        <img
-                                            src={article.imageUrl || 'https://via.placeholder.com/400x250?text=Health+Article'}
-                                            alt={article.title}
-                                        />
-                                        <span className="article-category-badge">{article.category}</span>
-                                    </div>
-                                    <div className="article-content">
-                                        <div className="article-meta">
-                                            <span>{article.publishDate}</span>
-                                            <span className="dot">•</span>
-                                            <span>{article.readTime}</span>
+                            // 🟢 Layout Structure: Wrapper -> Link(Card) -> FloatButton
+                            <div key={article.id} className="article-card-wrapper">
+                                <Link to={`/health/${article.id}`} className="article-card-link">
+                                    <article className="science-article-card">
+                                        {/* Left Side: Image */}
+                                        <div className="article-image-wrapper">
+                                            <img
+                                                src={article.imageUrl || 'https://via.placeholder.com/400x250?text=Health+Article'}
+                                                alt={article.title}
+                                            />
+                                            <span className="article-category-badge">{article.category}</span>
                                         </div>
-                                        <h3>{article.title}</h3>
-                                        <p>{article.summary}</p>
-                                        <span className="read-more-text">Read Article →</span>
-                                    </div>
-                                </article>
-                            </Link>
+
+                                        {/* Right Side: Content */}
+                                        <div className="article-content">
+                                            <div className="article-meta">
+                                                <span>{article.publishDate || '2025-12-30'}</span>
+                                                <span className="dot">•</span>
+                                                <span>{article.readTime || '5 min read'}</span>
+                                            </div>
+                                            <h3>{article.title}</h3>
+                                            <p>{article.summary}</p>
+                                            <span className="read-more-text">Read Article →</span>
+                                        </div>
+                                    </article>
+                                </Link>
+
+                                {/* Floating Favorite Button (Outside the Link) */}
+                                <div className="floating-fav-btn">
+                                    <FavoriteButton
+                                        articleId={article.id}
+                                        title={article.title}
+                                        type="health"
+                                        imageUrl={article.imageUrl}
+                                        category={article.category}
+                                    />
+                                </div>
+                            </div>
                         )) : (
                             <div className="no-results">
-                                <p>No articles found. Try adding some in Firebase!</p>
+                                <p>No articles found.</p>
                             </div>
                         )}
                     </div>

@@ -7,22 +7,22 @@ export interface Message {
     timestamp: number;
 }
 
-// 🔴 你的 Key (不需要改)
-const API_KEY = "AIzaSyDxBgUAJLrvuFhvD5Dg7Pq_UxkCGaKAQBI";
+// 🔴 Your Key (No changes needed)
+const API_KEY = "";
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export const getAIResponse = async (messages: Message[]): Promise<string> => {
     try {
-        // 🟢 关键修改：改用 "gemini-3-flash-preview"
-        // Flash 模型拥有巨大的免费配额，基本用不完，而且速度极快！
+        // 🟢 Key Modification: Using "gemini-3-flash-preview"
+        // The Flash model has a massive free quota that is almost impossible to exhaust, and it is extremely fast!
         const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
-        // --- 核心修复逻辑 (保持不变) ---
-        // 1. 准备历史消息
+        // --- Core Fix Logic (Remains unchanged) ---
+        // 1. Prepare history messages
         let historyMessages = messages.slice(0, -1);
 
-        // 2. 修正对话开头的角色 (Gemini 规定第一句不能是 AI)
+        // 2. Fix the initial role of the conversation (Gemini requires the first message to be from 'user', not 'model')
         if (historyMessages.length > 0 && historyMessages[0].role === 'ai') {
             historyMessages = historyMessages.slice(1);
         }
@@ -32,12 +32,12 @@ export const getAIResponse = async (messages: Message[]): Promise<string> => {
             parts: [{ text: msg.content }],
         }));
 
-        // 3. 启动聊天
+        // 3. Start chat session
         const chat = model.startChat({
             history: history,
         });
 
-        // 4. 发送最新消息
+        // 4. Send the latest message
         const lastUserMessage = messages[messages.length - 1].content;
         const result = await chat.sendMessage(lastUserMessage);
 
@@ -46,12 +46,12 @@ export const getAIResponse = async (messages: Message[]): Promise<string> => {
     } catch (error: any) {
         console.error("Gemini API Error:", error);
 
-        // 错误处理指南
+        // Error handling guide
         if (error.message.includes("429")) {
             return "⚠️ Quota Limit: You are chatting too fast! Please wait a moment.";
         }
         if (error.message.includes("404")) {
-            // 如果 3-flash 也不行，试试 2.0-flash
+            // If 3-flash is unavailable, try switching to 2.0-flash
             return "⚠️ Model Not Found: Please try changing model to 'gemini-2.0-flash-exp' in the code.";
         }
 

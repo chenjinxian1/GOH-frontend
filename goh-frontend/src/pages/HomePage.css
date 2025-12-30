@@ -1,7 +1,7 @@
 /* src/pages/HomePage.css */
 
 /* =========================
-   通用布局 & 滚动吸附
+   General Layout & Scroll Snap
    ========================= */
 
 .home-page {
@@ -119,14 +119,14 @@
 .hero-search button:hover { background-color: #000; }
 
 /* =========================
-   2. Articles Section (双栏滑动)
+   2. Articles Section (Dual-row Carousel)
    ========================= */
 
 .home-section.articles {
     background-color: #ffffff;
     justify-content: center;
-    /* 🟢 修改点 1：增大与上方视频区域的间距 */
-    /* 将 padding-top 从 60px 增加到 120px (或更大，如 150px) */
+    /* 🟢 Modification 1: Increased spacing from the video section above */
+    /* Increased padding-top from 60px to 120px */
     padding-top: 120px;
     padding-bottom: 60px;
 }
@@ -138,8 +138,8 @@
     display: flex;
     flex-direction: column;
 
-    /* 🟢 修改点 2：减少两个板块之间的间距 */
-    /* 将 gap 从 120px 减小到 50px (让它们更紧凑) */
+    /* 🟢 Modification 2: Reduced spacing between the two article blocks */
+    /* Decreased gap from 120px to 50px for a more compact layout */
     gap: 50px;
 }
 
@@ -147,7 +147,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px; /* 标题和卡片间距微调 */
+    margin-bottom: 25px; /* Fine-tuned spacing between title and cards */
     padding: 0 5px;
 }
 
@@ -168,14 +168,14 @@
 }
 .view-all-btn:hover { text-decoration: underline; }
 
-/* 轮播容器 */
+/* Carousel Container */
 .carousel-wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-/* 卡片滑动轨道 */
+/* Card Scrolling Track */
 .card-carousel {
     display: flex;
     gap: 24px;
@@ -187,7 +187,7 @@
 }
 .card-carousel::-webkit-scrollbar { display: none; }
 
-/* 左右箭头按钮 */
+/* Left & Right Navigation Arrows */
 .nav-arrow {
     position: absolute;
     top: 50%;
@@ -217,7 +217,7 @@
 .left-arrow { left: -24px; }
 .right-arrow { right: -24px; }
 
-/* 卡片样式 */
+/* Card Styles */
 .article-card {
     flex: 0 0 280px;
     min-width: 280px;
@@ -384,7 +384,7 @@
     box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
 }
 
-/* 响应式适配 */
+/* Responsive Adaptation */
 @media (max-width: 900px) {
     .dataviz-inner {
         flex-direction: column;
@@ -397,5 +397,5 @@
     .nav-arrow { width: 36px; height: 36px; font-size: 18px; }
     .left-arrow { left: -10px; }
     .right-arrow { right: -10px; }
-    .articles-inner { gap: 60px; } /* 移动端保持较小间距 */
+    .articles-inner { gap: 60px; } /* Maintain smaller gap on mobile */
 }

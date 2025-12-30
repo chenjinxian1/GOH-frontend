@@ -1,193 +1,114 @@
 /* src/pages/DiseaseSearchPage.css */
 
-/* 1. 页面主容器 */
 .science-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
-    min-height: 80vh;
     font-family: 'Inter', system-ui, sans-serif;
+    min-height: 80vh;
 }
 
-/* 2. 头部样式 */
-.science-header {
-    text-align: center;
-    margin-bottom: 48px;
-}
+.science-header { text-align: center; margin-bottom: 48px; }
+.science-title { font-size: 36px; font-weight: 800; color: #111827; margin-bottom: 12px; }
+.science-subtitle { font-size: 18px; color: #6b7280; max-width: 600px; margin: 0 auto 32px; }
 
-.science-title {
-    font-size: 36px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-.science-subtitle {
-    font-size: 18px;
-    color: #6b7280;
-    max-width: 600px;
-    margin: 0 auto 32px;
-}
-
-/* 3. 搜索和筛选区 */
-.science-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-}
-
-.search-bar {
-    width: 100%;
-    max-width: 550px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-}
-
+.science-controls { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+.search-bar { width: 100%; max-width: 550px; margin: 0 auto; display: flex; justify-content: center; }
 .search-bar input {
-    width: 100%;
-    padding: 14px 24px;
-    border: 1px solid #e5e7eb;
-    border-radius: 99px;
-    font-size: 16px;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    outline: none;
-    transition: all 0.2s ease;
+    width: 100%; padding: 14px 24px; border: 1px solid #e5e7eb; border-radius: 99px;
+    font-size: 16px; outline: none; transition: all 0.2s;
 }
-
-.search-bar input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+.search-bar input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+.category-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.filter-btn {
+    padding: 8px 16px; border: 1px solid #e5e7eb; background: #ffffff; border-radius: 20px;
+    color: #4b5563; cursor: pointer; transition: all 0.2s;
 }
+.filter-btn.active { background: #111827; color: #ffffff; border-color: #111827; }
 
-/* 4. 文章列表网格 */
-.articles-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
+/* Grid */
+.articles-grid { display: flex; flex-direction: column; gap: 24px; }
 
-/* 5. 卡片样式 */
-.article-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
+.article-card-wrapper { position: relative; transition: transform 0.2s ease; }
+.article-card-wrapper:hover { transform: translateY(-2px); }
+.article-card-link { text-decoration: none; color: inherit; display: block; }
 
+/* 🟢 Card: Horizontal Layout */
 .science-article-card {
     display: flex;
+    flex-direction: row; /* Horizontal */
     background: #ffffff;
     border: 1px solid #f3f4f6;
     border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     height: 220px;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.science-article-card:hover {
-    transform: translateY(-2px);
+.article-card-wrapper:hover .science-article-card {
     box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
     border-color: #e5e7eb;
 }
 
-/* 左侧图片 */
+/* Image Wrapper */
 .article-image-wrapper {
-    width: 320px;
+    width: 320px; /* Fixed width for left side */
     flex-shrink: 0;
     position: relative;
-    background-color: #f3f4f6; /* 占位背景色 */
+    background-color: #f3f4f6;
 }
-
-.article-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+.article-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 .article-category-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    /* Disease 页面可以用红色或橙色来区分 */
-    color: #2563eb;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255, 255, 255, 0.95); padding: 4px 10px; border-radius: 6px;
+    font-size: 12px; font-weight: 700; color: #2563eb;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-transform: uppercase;
 }
 
-/* 右侧内容 */
+/* Content Wrapper */
 .article-content {
-    padding: 32px;
     flex: 1;
+    padding: 32px;
+    padding-right: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.article-meta {
-    font-size: 13px;
-    color: #9ca3af;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.dot {
-    margin: 0 6px;
-}
+.article-meta { font-size: 13px; color: #9ca3af; margin-bottom: 8px; font-weight: 500; }
+.dot { margin: 0 6px; }
 
 .science-article-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #111827;
-    margin: 0 0 10px 0;
-    line-height: 1.3;
+    font-size: 22px; font-weight: 700; color: #111827;
+    margin: 0 0 10px 0; line-height: 1.3;
 }
-
 .science-article-card p {
-    font-size: 15px;
-    color: #6b7280;
-    margin: 0 0 20px 0;
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 15px; color: #6b7280; margin: 0 0 20px 0; line-height: 1.6;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.read-more-text { font-size: 14px; font-weight: 600; color: #2563eb; }
+
+/* 🟢 Fix: Makes the whole card clickable by stretching the link over the entire wrapper */
+.card-overlay-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensures it stays above the card content */
+    cursor: pointer;
 }
 
-.read-more-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: #2563eb; /* 与徽章颜色呼应 */
+/* 🟢 Floating Favorite Button: Positioned on top of the link */
+.floating-fav-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10; /* Ensures button is clickable and doesn't trigger the overlay link */
 }
 
-.no-results {
-    text-align: center;
-    padding: 40px;
-    color: #6b7280;
-    font-size: 1.1rem;
-}
-
-/* 手机适配 */
 @media (max-width: 768px) {
-    .science-article-card {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .article-image-wrapper {
-        width: 100%;
-        height: 200px;
-    }
-
-    .article-content {
-        padding: 24px;
-    }
+    .science-article-card { flex-direction: column; height: auto; }
+    .article-image-wrapper { width: 100%; height: 200px; }
+    .article-content { padding: 24px; padding-bottom: 70px; }
 }

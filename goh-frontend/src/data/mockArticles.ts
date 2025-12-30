@@ -1,11 +1,13 @@
+// src/data/mockArticles.ts
+
 export interface Article {
     id: number;
     title: string;
     summary: string;
-    content: string[]; // 每个元素是一段话
+    content: string[]; // Each element is a paragraph
     category: string;
     readingTime: string;
-    featured: boolean; // 是否用在上面那排大卡片
+    featured: boolean; // Whether it appears in the top featured card section
 }
 
 export const mockArticles: Article[] = [

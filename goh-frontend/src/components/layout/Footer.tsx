@@ -1,8 +1,9 @@
+
 // src/components/layout/Footer.tsx
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-// 确保路径正确
+// Ensure paths are correct
 import usmLogo from '../../assets/usm-logo.png';
 import gohLogo from '../../assets/logo-goh.png';
 
@@ -12,7 +13,7 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-inner">
-                {/* 左侧：Logo + 标题 + 标语 */}
+                {/* Left side: Logo + Title + Tagline */}
                 <div className="footer-left">
                     <div className="footer-logos">
                         <img
@@ -39,7 +40,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* 右侧：组员信息 */}
+                {/* Right side: Team Member Information */}
                 <div className="footer-right">
                     <div className="footer-column-title">Our Team Members</div>
                     <div className="footer-members-grid">
@@ -76,7 +77,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* 🟢 修改后的底部栏：包含版权信息和法律链接 */}
+            {/* 🟢 Modified bottom bar: contains copyright info and legal links */}
             <div className="footer-bottom">
                 <div className="footer-copyright">
                     © {year} Guardians of Health · For education and research use only.

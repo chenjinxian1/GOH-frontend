@@ -7,21 +7,21 @@ interface LoginPageProps {
 }
 
 export default function LoginPage({ initialSignUp = false }: LoginPageProps) {
-    // 控制是否处于 "Sign Up" 状态（即右侧面板激活状态）
+    // Controls whether it is in "Sign Up" state (activating the right panel)
     const [isSignUp, setIsSignUp] = useState(initialSignUp);
 
-    // 状态管理
+    // State management
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [agree, setAgree] = useState(false);
 
-    // 切换到注册视图
+    // Switch to Sign Up view
     const handleSignUpClick = () => {
         setIsSignUp(true);
     };
 
-    // 切换到登录视图
+    // Switch to Sign In view
     const handleSignInClick = () => {
         setIsSignUp(false);
     };
@@ -42,14 +42,14 @@ export default function LoginPage({ initialSignUp = false }: LoginPageProps) {
 
     return (
         <div className="auth-wrapper">
-            {/* 核心容器：根据 isSignUp 状态添加 class 触发滑动 */}
+            {/* Core container: adds the 'right-panel-active' class based on isSignUp state to trigger sliding animation */}
             <div className={`container ${isSignUp ? 'right-panel-active' : ''}`} id="container">
 
-                {/* 注册表单区域 */}
+                {/* Sign Up Form Area */}
                 <div className="form-container sign-up-container">
                     <form className="auth-form" onSubmit={handleRegisterSubmit}>
                         <h1 className="auth-title">Create Account</h1>
-                        {/* 社交图标已移除 */}
+                        {/* Social icons removed */}
                         <span className="auth-sub">or use your email for registration</span>
 
                         <input
@@ -87,11 +87,11 @@ export default function LoginPage({ initialSignUp = false }: LoginPageProps) {
                     </form>
                 </div>
 
-                {/* 登录表单区域 */}
+                {/* Sign In Form Area */}
                 <div className="form-container sign-in-container">
                     <form className="auth-form" onSubmit={handleLoginSubmit}>
                         <h1 className="auth-title">Sign in</h1>
-                        {/* 社交图标已移除 */}
+                        {/* Social icons removed */}
                         <span className="auth-sub">or use your email account</span>
 
                         <input
@@ -117,10 +117,10 @@ export default function LoginPage({ initialSignUp = false }: LoginPageProps) {
                     </form>
                 </div>
 
-                {/* 滑动覆盖层区域 */}
+                {/* Sliding Overlay Area */}
                 <div className="overlay-container">
                     <div className="overlay">
-                        {/* 左侧覆盖层（在显示注册表单时可见，提示去登录） */}
+                        {/* Left Overlay (Visible when showing the registration form, prompts to sign in) */}
                         <div className="overlay-panel overlay-left">
                             <h1 className="auth-title">Welcome Back!</h1>
                             <p className="auth-desc">
@@ -131,7 +131,7 @@ export default function LoginPage({ initialSignUp = false }: LoginPageProps) {
                             </button>
                         </div>
 
-                        {/* 右侧覆盖层（在显示登录表单时可见，提示去注册） */}
+                        {/* Right Overlay (Visible when showing the login form, prompts to sign up) */}
                         <div className="overlay-panel overlay-right">
                             <h1 className="auth-title">Hello, Friend!</h1>
                             <p className="auth-desc">

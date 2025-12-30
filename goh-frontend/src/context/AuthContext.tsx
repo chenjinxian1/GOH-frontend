@@ -1,6 +1,6 @@
 // src/context/AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from 'react';
-// 🟢 修复点：User 是类型，必须加 'type' 关键字
+// 🟢 Fix: User is a type, must include 'type' keyword
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // 🟢 修复点：直接 return，消除 "unsubscribe 变量未使用" 的警告
+        // 🟢 Fix: Return directly to eliminate the "unused unsubscribe variable" warning
         return onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
             if (user) {

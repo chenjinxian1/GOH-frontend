@@ -5,9 +5,9 @@
     background: #ffffff;
     margin-top: 40px;
 
-    /* 新增：设置吸附对齐方式 */
-    /* 使用 end 表示让页脚的底部与屏幕底部对齐，
-       这样在长页面中可以自然露出页脚，而不会强制留白 */
+    /* Added: Set scroll snap alignment */
+    /* Use 'end' to align the bottom of the footer with the bottom of the screen.
+       This allows the footer to appear naturally in long pages without forcing empty space. */
     scroll-snap-align: end;
 }
 
@@ -21,11 +21,11 @@
     gap: 32px;
 }
 
-/* 左侧：logo + 文案 */
+/* Left side: logo + text */
 .footer-left {
     display: flex;
-    align-items: center;   /* 关键：让文本和 logo 纵向居中对齐 */
-    gap: 20px;             /* 稍微拉开一点距离，看起来更舒服 */
+    align-items: center;   /* Key: center text and logo vertically */
+    gap: 20px;             /* Add spacing for better visual balance */
 }
 .footer-logos {
     display: flex;
@@ -33,9 +33,9 @@
     gap: 12px;
 }
 
-/* 控制 logo 大小，不拉伸变形 */
+/* Control logo size without stretching */
 .footer-logo-img {
-    height: 80px;        /* 想再大一点可以改成 80 或 90 */
+    height: 80px;        /* Can be adjusted to 80 or 90 if a larger size is needed */
     width: auto;
     object-fit: contain;
 }
@@ -44,7 +44,7 @@
     max-width: 260px;
     display: flex;
     flex-direction: column;
-    justify-content: center;  /* 关键：让三行文字在整个高度里居中 */
+    justify-content: center;  /* Key: center the three lines of text within the height */
 }
 
 .footer-project-title {
@@ -64,7 +64,7 @@
     color: #2563eb;
 }
 
-/* 右侧：成员 2×2 网格 */
+/* Right side: 2x2 member grid */
 .footer-right {
     flex: 1;
 }
@@ -92,7 +92,7 @@
     color: #4b5563;
 }
 
-/* 底部小字版权 */
+/* Bottom copyright text */
 .footer-bottom {
     border-top: 1px solid #e5e7eb;
     font-size: 12px;
@@ -100,14 +100,14 @@
     text-align: center;
     padding: 8px 12px 10px;
 }
-/* 🟢 更新 footer-bottom 样式 */
+/* 🟢 Updated footer-bottom styles */
 .footer-bottom {
     max-width: 1200px;
     margin: 40px auto 0;
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 
-    /* 使用 Flex 让版权信息和链接左右分开，或者居中排列 */
+    /* Use Flex to separate copyright info and links or center them */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,7 +117,7 @@
     color: #6b7280;
 }
 
-/* 如果屏幕够宽，让它们左右对齐 */
+/* If the screen is wide enough, align them side by side */
 @media (min-width: 768px) {
     .footer-bottom {
         flex-direction: row;
@@ -147,7 +147,7 @@
     font-size: 0.8rem;
 }
 
-/* 手机自适应：上下堆叠 + 成员改成一列 */
+/* Mobile responsive: stack vertically + change member grid to single column */
 @media (max-width: 768px) {
     .footer-inner {
         flex-direction: column;

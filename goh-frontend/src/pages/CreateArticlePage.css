@@ -23,7 +23,7 @@
     flex-shrink: 0;
 }
 
-/* 左侧：退出按钮 */
+/* Left side: Exit button */
 .header-left {
     display: flex;
     align-items: center;
@@ -49,14 +49,14 @@
     color: #1e293b;
 }
 
-/* 右侧：用户头像区 */
+/* Right side: User avatar area */
 .header-right {
     display: flex;
     align-items: center;
-    gap: 12px; /* 增加头像和文字的间距 */
+    gap: 12px; /* Increase spacing between avatar and text */
 }
 
-/* 🟢 恢复问候语样式 */
+/* 🟢 Restore greeting styles */
 .user-greeting {
     font-size: 15px;
     color: #64748b;
@@ -78,7 +78,7 @@
     cursor: default;
 }
 
-/* 滚动区域 */
+/* Scrollable area */
 .scroll-area {
     flex: 1;
     overflow-y: auto;
@@ -87,7 +87,7 @@
     justify-content: center;
 }
 
-/* 表单卡片 */
+/* Form card */
 .form-card {
     background: white;
     width: 100%;
@@ -96,7 +96,7 @@
     border: 1px solid #f1f5f9;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 
-    /* 🟢 修改：减小顶部内边距，让标题往上靠 */
+    /* 🟢 Modified: Reduced top padding to move the title upward */
     padding: 30px 48px 48px 48px;
 
     animation: slideUp 0.4s ease-out;
@@ -107,21 +107,21 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 🟢 修改：标题变大 */
+/* 🟢 Modified: Larger title */
 .page-title {
     text-align: center;
     color: #1e293b;
 
-    /* 字号变大 */
+    /* Increase font size */
     font-size: 2.6rem;
     font-weight: 800;
 
-    /* 调整间距 */
+    /* Adjust spacing */
     margin-top: 0;
     margin-bottom: 30px;
 }
 
-/* 板块选择器 */
+/* Section toggle/selector */
 .section-toggle-container {
     background: #f1f5f9;
     padding: 4px;

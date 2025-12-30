@@ -1,116 +1,118 @@
 // src/components/layout/Navbar.tsx
-import { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import './Navbar.css';
-import logo from '../../assets/logo-goh.png';
-// 🟢 引入我们刚才写的 Hook
+import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { auth } from '../../firebase/config';
+import { signOut } from 'firebase/auth';
+import './Navbar.css';
+
+// 🟢 1. Import the logo image from the assets folder based on your screenshot
+import logoImage from '../../assets/logo-goh.png';
 
 export default function Navbar() {
-    const { currentUser, userProfile, logout } = useAuth();
-    const [showMenu, setShowMenu] = useState(false);
+    const { currentUser, userProfile } = useAuth();
     const navigate = useNavigate();
-    const menuRef = useRef<HTMLDivElement>(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleLogout = async () => {
-        await logout();
-        setShowMenu(false);
-        navigate('/'); // 登出后回首页
-    };
+    // Toggle dropdown
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-    // 获取名字首字母作为头像占位符
-    const getInitials = () => {
-        return userProfile?.name ? userProfile.name.charAt(0).toUpperCase() : 'U';
-    };
-
-    // 点击外部关闭菜单
+    // Close dropdown when clicking outside
     useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setShowMenu(false);
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
             }
-        }
+        };
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            navigate('/login');
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
+    };
+
+    // Get user initial
+    const userInitial = userProfile?.name
+        ? userProfile.name.charAt(0).toUpperCase()
+        : currentUser?.email?.charAt(0).toUpperCase();
+
     return (
         <nav className="navbar">
+            {/* 1. Left: Logo (Updated src) */}
             <div className="navbar-left">
                 <Link to="/" className="navbar-logo">
-                    <img src={logo} alt="Guardians of Health" />
+                    {/* 🟢 2. Use the imported image variable here */}
+                    <img src={logoImage} alt="Guardians of Health" />
                     <span>Guardians of Health</span>
                 </Link>
             </div>
 
+            {/* 2. Center: Navigation Links */}
             <div className="navbar-center">
-                <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Home</NavLink>
-                <NavLink to="/ai-assistant" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>AI Assistant</NavLink>
-                <NavLink to="/science" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Health Science</NavLink>
-                <NavLink to="/diseases" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Disease Info</NavLink>
-                <NavLink to="/data-viz" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Data Viz</NavLink>
+                <Link to="/" className="nav-link">Home</Link>
+                <Link to="/ai-assistant" className="nav-link">AI Assistant</Link>
+                <Link to="/science" className="nav-link">Health Science</Link>
+                <Link to="/diseases" className="nav-link">Disease Info</Link>
+                <Link to="/data-viz" className="nav-link">Data Viz</Link>
             </div>
 
+            {/* 3. Right: User & Auth */}
             <div className="navbar-right">
-                {/* 🟢 只有登录才显示 Write 按钮 */}
-                {currentUser && (
-                    <Link
-                        to="/create"
-                        style={{ marginRight: '20px', textDecoration: 'none', color: '#3b82f6', fontWeight: '600', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '4px' }}
-                    >
-                        <span style={{fontSize: '18px', lineHeight: 1}}>+</span> Write
-                    </Link>
-                )}
+                {currentUser ? (
+                    <div className="user-menu-container" ref={dropdownRef}>
+                        <Link to="/create" className="write-btn">+ Write</Link>
 
-                {/* 🟢 根据登录状态切换显示 */}
-                {!currentUser ? (
-                    <>
-                        <Link to="/login" className="nav-button nav-button-outline">Sign in</Link>
-                        <Link to="/register" className="nav-button nav-button-filled">Sign up</Link>
-                    </>
-                ) : (
-                    <div className="user-menu-container" ref={menuRef}>
-                        {/* 头像按钮 */}
-                        <div className="avatar-btn" onClick={() => setShowMenu(!showMenu)}>
-                            {userProfile?.photoURL ? (
-                                <img src={userProfile.photoURL} alt="Avatar" />
-                            ) : (
-                                <div className="avatar-placeholder">{getInitials()}</div>
-                            )}
+                        {/* Avatar Circle */}
+                        <div className="avatar-btn" onClick={toggleDropdown}>
+                            <div className="avatar-placeholder">
+                                {userInitial}
+                            </div>
                         </div>
 
-                        {/* 🟢 仿 Google 下拉菜单 */}
-                        {showMenu && (
-                            <div className="google-menu">
-                                <div className="menu-header">
-                                    <div className="menu-email">{currentUser.email}</div>
-                                    <div className="menu-avatar-large">
-                                        {userProfile?.photoURL ? (
-                                            <img src={userProfile.photoURL} alt="Avatar" />
-                                        ) : (
-                                            <div className="avatar-placeholder large">{getInitials()}</div>
-                                        )}
-                                    </div>
-                                    <div className="menu-name">Hi, {userProfile?.name || 'User'}!</div>
-
-                                    <button
-                                        className="manage-btn"
-                                        onClick={() => {
-                                            navigate('/profile'); // 跳转去个人中心
-                                            setShowMenu(false);
-                                        }}
-                                    >
-                                        Manage your Account
-                                    </button>
+                        {/* Dropdown Menu */}
+                        {isDropdownOpen && (
+                            <div className="user-dropdown">
+                                <div className="dropdown-header">
+                                    <p className="dropdown-email">{currentUser.email}</p>
+                                    <div className="dropdown-avatar-large">{userInitial}</div>
+                                    <h3>Hi, {userProfile?.name || 'User'}!</h3>
                                 </div>
 
-                                <div className="menu-footer">
-                                    <button className="sign-out-btn" onClick={handleLogout}>
-                                        <span style={{marginRight: '8px'}}>↪️</span> Sign Out
+                                <div className="dropdown-actions">
+                                    <Link
+                                        to="/profile"
+                                        className="dropdown-btn manage-account-btn"
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    >
+                                        Manage your Account
+                                    </Link>
+
+                                    <Link
+                                        to="/favorites"
+                                        className="dropdown-btn favorite-link-btn"
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    >
+                                        💜 My Favorite
+                                    </Link>
+
+                                    <button onClick={handleSignOut} className="dropdown-btn sign-out-btn">
+                                        Sign Out
                                     </button>
                                 </div>
                             </div>
                         )}
+                    </div>
+                ) : (
+                    <div className="navbar-right-actions">
+                        <Link to="/login" className="nav-button nav-button-outline">Log In</Link>
+                        <Link to="/register" className="nav-button nav-button-filled">Get Started</Link>
                     </div>
                 )}
             </div>

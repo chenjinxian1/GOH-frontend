@@ -1,6 +1,6 @@
 /* src/pages/DiseaseSearchPage.css */
 
-/* 1. 页面主容器 */
+/* 1. Page Main Container */
 .science-page {
     max-width: 1200px;
     margin: 0 auto;
@@ -9,7 +9,7 @@
     font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* 2. 头部样式 */
+/* 2. Header Styles */
 .science-header {
     text-align: center;
     margin-bottom: 48px;
@@ -29,7 +29,7 @@
     margin: 0 auto 32px;
 }
 
-/* 3. 搜索和筛选区 */
+/* 3. Search and Controls Area */
 .science-controls {
     display: flex;
     flex-direction: column;
@@ -63,14 +63,14 @@
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-/* 4. 文章列表网格 */
+/* 4. Article List Grid */
 .articles-grid {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
-/* 5. 卡片样式 */
+/* 5. Card Styles */
 .article-card-link {
     text-decoration: none;
     color: inherit;
@@ -93,7 +93,7 @@
     border-color: #e5e7eb;
 }
 
-/* 左侧图片 */
+/* Left side image */
 .article-image-wrapper {
     width: 320px;
     flex-shrink: 0;
@@ -107,7 +107,7 @@
     object-fit: cover;
 }
 
-/* 🟢 修改点 1：把原本的红色改回蓝色 */
+/* 🟢 Modification 1: Changed red back to blue */
 .article-category-badge {
     position: absolute;
     top: 12px;
@@ -118,7 +118,7 @@
     font-size: 12px;
     font-weight: 700;
 
-    /* 改回蓝色，与 Health Knowledge 一致 */
+    /* Changed back to blue, consistent with Health Knowledge */
     color: #2563eb;
 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -126,7 +126,7 @@
     letter-spacing: 0.5px;
 }
 
-/* 右侧内容 */
+/* Right side content */
 .article-content {
     padding: 32px;
     flex: 1;
@@ -165,12 +165,12 @@
     overflow: hidden;
 }
 
-/* 🟢 修改点 2：把原本的红色改回蓝色 */
+/* 🟢 Modification 2: Changed red back to blue */
 .read-more-text {
     font-size: 14px;
     font-weight: 600;
 
-    /* 改回蓝色 */
+    /* Changed back to blue */
     color: #2563eb;
 }
 
@@ -181,7 +181,7 @@
     font-size: 1.1rem;
 }
 
-/* 手机适配 */
+/* Mobile responsive adjustments */
 @media (max-width: 768px) {
     .science-article-card {
         flex-direction: column;

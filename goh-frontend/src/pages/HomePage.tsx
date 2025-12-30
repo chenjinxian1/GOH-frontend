@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/config";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import "./HomePage.css";
-// 确保 assets 存在
+// Ensure assets exist
 import dataVisImage from "../assets/data-vis.png";
 import handHeartVideo from "../assets/hand_heart.mp4";
 
@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
 
     const [searchQuery, setSearchQuery] = useState("");
 
-    // 🟢 分离两个板块的数据状态
+    // 🟢 Separated data states for the two sections
     const [knowledgeArticles, setKnowledgeArticles] = useState<Article[]>([]);
     const [diseaseArticles, setDiseaseArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState(true);
@@ -36,13 +36,13 @@ const HomePage: React.FC = () => {
         }
     }, []);
 
-    // 🟢 读取数据库 (分离请求)
+    // 🟢 Fetch data from database (Separated requests)
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // 1. 获取 Health Knowledge (从 'articles' 集合)
-                // 按发布时间倒序，取前10个
+                // 1. Fetch Health Knowledge (from 'articles' collection)
+                // Order by publish date descending, limit to top 10
                 const knowledgeQuery = query(
                     collection(db, "articles"),
                     orderBy("publishDate", "desc"),
@@ -55,9 +55,9 @@ const HomePage: React.FC = () => {
                 })) as Article[];
                 setKnowledgeArticles(kData);
 
-                // 2. 获取 Disease Information (从 'Disease_Information' 集合)
+                // 2. Fetch Disease Information (from 'Disease_Information' collection)
                 const diseaseQuery = query(
-                    collection(db, "Disease_Information"), // 🟢 对应你的新集合名称
+                    collection(db, "Disease_Information"), // 🟢 Corresponds to your new collection name
                     orderBy("publishDate", "desc"),
                     limit(10)
                 );
@@ -78,10 +78,10 @@ const HomePage: React.FC = () => {
         void fetchData();
     }, []);
 
-    // --- 交互逻辑 ---
+    // --- Interaction Logic ---
     const handleReadMore = (id: string, type: 'article' | 'disease') => {
         if (type === 'disease') {
-            navigate(`/disease/${id}`); // 假设疾病详情页路由是 /disease/:id
+            navigate(`/disease/${id}`); // Assumes disease detail route is /disease/:id
         } else {
             navigate(`/article/${id}`);
         }
@@ -89,9 +89,9 @@ const HomePage: React.FC = () => {
 
     const handleViewAll = (section: 'knowledge' | 'disease') => {
         if (section === 'knowledge') {
-            navigate('/science'); // 对应 HealthKnowledgePage
+            navigate('/science'); // Navigates to HealthKnowledgePage
         } else {
-            navigate('/diseases'); // 对应 DiseaseInfoPage
+            navigate('/diseases'); // Navigates to DiseaseInfoPage
         }
     };
 
@@ -105,7 +105,7 @@ const HomePage: React.FC = () => {
         if (e.key === 'Enter') handleSearch();
     };
 
-    // 滚动控制函数
+    // Scroll control function
     const scroll = (ref: React.RefObject<HTMLDivElement | null>, direction: 'left' | 'right') => {
         if (ref.current) {
             const { current } = ref;
@@ -118,7 +118,7 @@ const HomePage: React.FC = () => {
         }
     };
 
-    // 渲染单个卡片组件
+    // Render individual card component
     const renderCard = (card: Article, type: 'article' | 'disease') => (
         <article
             key={card.id}
@@ -136,7 +136,7 @@ const HomePage: React.FC = () => {
             <div className="card-body">
                 <div className="card-content-top">
                     <div className="card-tags">
-                        {/* 只有 Knowledge 板块通常有分类，Disease 可以显示固定标签 */}
+                        {/* Only Knowledge section usually has categories; Disease displays a fixed tag */}
                         <span className="tag-category">
                             {type === 'article' ? (card.category || "General") : "Disease Info"}
                         </span>
@@ -183,10 +183,10 @@ const HomePage: React.FC = () => {
                 <section className="home-section articles">
                     <div className="articles-inner">
 
-                        {/* --- 第一栏：Health Knowledge Central --- */}
+                        {/* --- First Row: Health Knowledge Central --- */}
                         <div className="articles-block">
                             <div className="articles-header">
-                                {/* 🟢 修改标题 */}
+                                {/* 🟢 Updated Title */}
                                 <h2>Health Knowledge Central</h2>
                                 <button className="view-all-btn" onClick={() => handleViewAll('knowledge')}>View all</button>
                             </div>
@@ -208,7 +208,7 @@ const HomePage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* --- 第二栏：Disease Information --- */}
+                        {/* --- Second Row: Disease Information --- */}
                         <div className="articles-block">
                             <div className="articles-header">
                                 <h2>Disease Information</h2>

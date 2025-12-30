@@ -1,0 +1,184 @@
+/* src/pages/MyFavoritesPage.css */
+
+.fav-page-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+    min-height: 70vh;
+}
+
+.fav-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.fav-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.fav-header p {
+    color: #6b7280;
+}
+
+/* List Layout (Stack vertically) */
+.fav-list-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Card Wrapper */
+.fav-card-wrapper {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.fav-card-wrapper:hover {
+    transform: translateY(-2px);
+    z-index: 1;
+}
+
+/* Link Block */
+.fav-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* The Card Itself - Horizontal Flex */
+.fav-article-card {
+    display: flex; /* 🟢 This makes it horizontal */
+    background: #ffffff;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 180px; /* Fixed height for consistency */
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.fav-card-wrapper:hover .fav-article-card {
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+    border-color: #e5e7eb;
+}
+
+/* Image Section (Left) */
+.fav-image-wrapper {
+    width: 260px; /* Fixed width */
+    flex-shrink: 0;
+    position: relative;
+    background-color: #f3f4f6;
+}
+
+.fav-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Badge on Image */
+.fav-category-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fav-category-badge.disease { color: #dc2626; }
+.fav-category-badge.health { color: #059669; }
+
+/* Content Section (Right) */
+.fav-content {
+    flex: 1;
+    padding: 24px;
+    padding-right: 60px; /* Space for heart button */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.fav-content h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.3;
+}
+
+.fav-type-label {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 16px;
+}
+
+.fav-read-more {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b82f6;
+    margin-top: auto;
+}
+
+/* Floating Button */
+.floating-fav-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+    .fav-article-card {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .fav-image-wrapper {
+        width: 100%;
+        height: 180px;
+    }
+
+    .fav-content {
+        padding: 20px;
+        padding-bottom: 60px;
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    background: #f9fafb;
+    border-radius: 16px;
+    color: #6b7280;
+}
+
+.empty-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.btn-explore {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 99px;
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    font-size: 14px;
+}
+.btn-explore:hover {
+    background: #f3f4f6;
+}

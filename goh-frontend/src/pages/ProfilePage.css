@@ -1,6 +1,6 @@
 /* src/pages/ProfilePage.css */
 
-/* 页面容器：淡雅的灰蓝色背景 */
+/* Page container: Soft grayish-blue background */
 .profile-page-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -10,7 +10,7 @@
     color: #1f2937;
 }
 
-/* 顶部标题区域 */
+/* Top header area */
 .page-title {
     font-size: 28px;
     font-weight: 700;
@@ -21,7 +21,7 @@
     gap: 12px;
 }
 
-/* --- 头部概览卡片 (大头像区域) --- */
+/* --- Header Overview Card (Avatar Area) --- */
 .profile-header-card {
     background: white;
     border-radius: 16px;
@@ -39,7 +39,7 @@
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #eff6ff; /* 浅蓝色边框 */
+    border: 4px solid #eff6ff; /* Light blue border */
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
 }
 
@@ -81,7 +81,7 @@
     font-weight: 600;
 }
 
-/* --- 通用卡片样式 --- */
+/* --- General Card Styles --- */
 .section-card {
     background: white;
     border-radius: 16px;
@@ -113,10 +113,10 @@
     color: #111827;
 }
 
-/* --- 表单网格布局 --- */
+/* --- Form Grid Layout --- */
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 两列布局 */
+    grid-template-columns: 1fr 1fr; /* Two-column layout */
     gap: 25px;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .form-group.full-width {
-    grid-column: span 2; /* 某些输入框占满一行 */
+    grid-column: span 2; /* Certain inputs occupy full row */
 }
 
 .form-label {
@@ -148,7 +148,7 @@
     transition: all 0.2s;
 }
 
-/* 禁用状态（只读） */
+/* Disabled state (Read-only) */
 .form-input:disabled, .form-select:disabled {
     background-color: #f3f4f6;
     color: #6b7280;
@@ -156,7 +156,7 @@
     border-color: transparent;
 }
 
-/* 激活编辑状态 */
+/* Active edit state */
 .form-input:not(:disabled):focus, .form-select:not(:disabled):focus {
     background-color: white;
     border-color: #3b82f6;
@@ -169,7 +169,7 @@
     border-color: #d1d5db;
 }
 
-/* --- 按钮样式 --- */
+/* --- Button Styles --- */
 .btn-edit {
     padding: 8px 18px;
     background: white;
@@ -188,7 +188,7 @@
 
 .btn-save {
     padding: 10px 24px;
-    background: #10b981; /* 绿色 */
+    background: #10b981; /* Green */
     color: white;
     border: none;
     border-radius: 8px;
@@ -220,7 +220,7 @@
 
 .btn-update-pass {
     padding: 12px 24px;
-    background: #1f2937; /* 深色 */
+    background: #1f2937; /* Dark */
     color: white;
     border: none;
     border-radius: 8px;

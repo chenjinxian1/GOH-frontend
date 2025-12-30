@@ -39,7 +39,7 @@
 .legal-content h2 {
     font-size: 18px;
     font-weight: 700;
-    color: #1e3a8a; /* 你的主题深蓝 */
+    color: #1e3a8a; /* Your theme's deep blue */
     margin-bottom: 12px;
 }
 
@@ -59,7 +59,7 @@
     margin-bottom: 6px;
 }
 
-/* 红色警告区域样式 */
+/* Red warning area styles */
 .critical-warning {
     background-color: #fef2f2;
     border-left: 5px solid #ef4444;

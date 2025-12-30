@@ -1,11 +1,11 @@
 /* src/pages/AuthPage.css */
 
-/* 🟢 关键修改1：强制在这个组件内部重置盒子模型，防止外部 CSS 干扰 */
+/* 🟢 Key Fix 1: Force box-sizing reset within this component to prevent external CSS interference */
 .auth-body * {
     box-sizing: border-box;
 }
 
-/* 页面居中背景 */
+/* Page Centered Background */
 .auth-body {
     background: #f6f5f7;
     display: flex;
@@ -13,12 +13,12 @@
     align-items: center;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
-    /* 减去导航栏高度，确保垂直居中 */
+    /* Subtract Navbar height to ensure true vertical centering */
     min-height: calc(100vh - 80px);
-    margin-top: -20px; /* 微调位置 */
+    margin-top: -20px; /* Fine-tune position */
 }
 
-/* 主容器：固定宽高，确保稳定 */
+/* Main Container: Fixed dimensions for stability */
 .container {
     background-color: #fff;
     border-radius: 10px;
@@ -27,13 +27,13 @@
     position: relative;
     overflow: hidden;
 
-    /* 🔴 修改这里：变宽 */
+    /* 🔴 Modified: Increased width */
     width: 1000px;
     max-width: 100%;
-    min-height: 550px; /* 稍微增高一点，因为输入框变多了 */
+    min-height: 550px; /* Slightly increased height to accommodate more input fields */
 }
 
-/* 通用样式 */
+/* General Styles */
 .container h1 {
     font-weight: bold;
     margin: 0;
@@ -60,7 +60,7 @@
 
 .container button {
     border-radius: 20px;
-    border: 1px solid #111827; /* 使用你的主题深色 */
+    border: 1px solid #111827; /* Using your theme's dark color */
     background-color: #111827;
     color: #FFFFFF;
     font-size: 12px;
@@ -105,9 +105,9 @@
     width: 100%;
 }
 
-/* === 🟢 核心布局与动画 (最易出错部分的稳定版) === */
+/* === 🟢 Core Layout & Animation (Stable version for the most error-prone parts) === */
 
-/* 表单容器基础样式 */
+/* Form Container Base Styles */
 .form-container {
     position: absolute;
     top: 0;
@@ -115,38 +115,38 @@
     transition: all 0.6s ease-in-out;
 }
 
-/* 登录表单 (Sign In) */
+/* Sign In Container */
 .sign-in-container {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-/* 激活注册时，登录表单移到右侧 */
+/* When registration is active, move Sign In container to the right */
 .container.right-panel-active .sign-in-container {
     transform: translateX(100%);
 }
 
-/* 注册表单 (Sign Up) */
+/* Sign Up Container */
 .sign-up-container {
     left: 0;
     width: 50%;
-    opacity: 0; /* 默认透明 */
+    opacity: 0; /* Transparent by default */
     z-index: 1;
 }
 
-/* 激活注册时，注册表单移到右侧，并显示在最上层 */
+/* When registration is active, move Sign Up to right and bring to top layer */
 .container.right-panel-active .sign-up-container {
     transform: translateX(100%);
     opacity: 1;
-    z-index: 5; /* 提高层级 */
-    /* 🟢 关键修改2：移除复杂的 keyframes 动画，使用简单的 transition 提高稳定性 */
+    z-index: 5; /* Higher stacking order */
+    /* 🟢 Key Fix 2: Removed complex keyframes, using simple transitions for better stability */
 }
 
 
-/* === 覆盖层 (Overlay) === */
+/* === Overlay Section === */
 
-/* 覆盖层容器：始终占一半宽度，负责左右移动 */
+/* Overlay Container: Always half width, handles left/right sliding */
 .overlay-container {
     position: absolute;
     top: 0;
@@ -158,14 +158,14 @@
     z-index: 100;
 }
 
-/* 激活注册时，覆盖层容器移到左侧 */
+/* When registration is active, move overlay container to the left */
 .container.right-panel-active .overlay-container{
     transform: translateX(-100%);
 }
 
-/* 覆盖层背景：双倍宽度，负责内部内容移动 */
+/* Overlay Background: Double width, handles internal content movement */
 .overlay {
-    background: #111827; /* 你的主题深色 */
+    background: #111827; /* Theme dark color */
     background: -webkit-linear-gradient(to right, #1f2937, #111827);
     background: linear-gradient(to right, #1f2937, #111827);
     background-repeat: no-repeat;
@@ -173,19 +173,19 @@
     background-position: 0 0;
     color: #FFFFFF;
     position: relative;
-    left: -100%; /* 初始位置在左侧外 */
+    left: -100%; /* Initial position outside to the left */
     height: 100%;
-    width: 200%; /* 双倍宽度 */
+    width: 200%; /* Double width */
     transform: translateX(0);
     transition: transform 0.6s ease-in-out;
 }
 
-/* 激活注册时，覆盖层背景向右移动，显示另一半 */
+/* When registration is active, move overlay background right to show the other half */
 .container.right-panel-active .overlay {
     transform: translateX(50%);
 }
 
-/* 覆盖层面板内容 */
+/* Overlay Panel Content */
 .overlay-panel {
     position: absolute;
     display: flex;
@@ -201,26 +201,26 @@
     transition: transform 0.6s ease-in-out;
 }
 
-/* 左侧面板内容 (Welcome Back) */
+/* Left Panel Content (Welcome Back) */
 .overlay-left {
-    transform: translateX(-20%); /* 初始稍微偏左，制造视差效果 */
+    transform: translateX(-20%); /* Initially slightly left for parallax effect */
 }
 
 .container.right-panel-active .overlay-left {
-    transform: translateX(0); /* 滑动后归位 */
+    transform: translateX(0); /* Return to position after slide */
 }
 
-/* 右侧面板内容 (Hello Friend) */
+/* Right Panel Content (Hello Friend) */
 .overlay-right {
     right: 0;
     transform: translateX(0);
 }
 
 .container.right-panel-active .overlay-right {
-    transform: translateX(20%); /* 滑动后稍微偏右 */
+    transform: translateX(20%); /* Slightly right after slide */
 }
 
-/* 社交图标 */
+/* Social Icons */
 .social-container {
     margin: 20px 0;
 }

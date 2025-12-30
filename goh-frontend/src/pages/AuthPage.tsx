@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './AuthPage.css';
 
-// 🟢 1. 引入 sendPasswordResetEmail
+// 🟢 1. Import sendPasswordResetEmail
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail, // 👈 核心函数
+    sendPasswordResetEmail, // 👈 Core function
     updateProfile,
     type AuthError
 } from 'firebase/auth';
@@ -19,12 +19,12 @@ export default function AuthPage() {
     const [isSignUp, setIsSignUp] = useState(false);
     const [isResetMode, setIsResetMode] = useState(false);
 
-    // 登录/注册用的状态
+    // State for Login/Registration
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // 🟢 重置密码用的状态 (只需要邮箱)
+    // 🟢 State for Password Reset (only email required)
     const [resetEmail, setResetEmail] = useState('');
 
     const location = useLocation();
@@ -41,7 +41,7 @@ export default function AuthPage() {
     const togglePanel = (status: boolean) => {
         setIsSignUp(status);
         setIsResetMode(false);
-        // 清空输入
+        // Clear inputs
         setEmail('');
         setPassword('');
         setName('');
@@ -79,7 +79,7 @@ export default function AuthPage() {
         }
     };
 
-    // 处理注册
+    // Handle Registration
     const handleSignUpSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email || !password || !name) {
@@ -93,12 +93,12 @@ export default function AuthPage() {
 
             await updateProfile(user, { displayName: name });
 
-            // 存入数据库
+            // Save to database
             await setDoc(doc(db, "users", user.uid), {
                 uid: user.uid,
                 name: name,
                 email: email,
-                password: password, // 注意：实际生产环境不建议存明文密码，这里仅依你要求保留
+                password: password, // Note: Storing plain text passwords is not recommended for production; kept per your request.
                 role: "user",
                 createdAt: new Date().toISOString()
             });
@@ -110,7 +110,7 @@ export default function AuthPage() {
         }
     };
 
-    // 处理登录
+    // Handle Login
     const handleSignInSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email || !password) {
@@ -126,7 +126,7 @@ export default function AuthPage() {
         }
     };
 
-    // 🟢 处理发送重置邮件
+    // 🟢 Handle sending reset email
     const handleResetSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -136,17 +136,17 @@ export default function AuthPage() {
         }
 
         try {
-            // 发送重置链接
+            // Send reset link
             await sendPasswordResetEmail(auth, resetEmail);
 
-            // 成功提示
+            // Success prompt
             alert(`✅ Reset link sent to ${resetEmail}!\nPlease check your inbox (and spam folder).`);
 
-            // 自动切回登录界面
+            // Automatically switch back to the login interface
             setIsResetMode(false);
 
         } catch (error: any) {
-            // 🟢 如果邮箱不存在，在这里捕捉错误
+            // 🟢 Catch error if email does not exist
             if (error.code === 'auth/user-not-found') {
                 alert("❌ This email is not registered. Please create an account first.");
             } else {
@@ -159,7 +159,7 @@ export default function AuthPage() {
         <div className="auth-body">
             <div className={`container ${isSignUp ? 'right-panel-active' : ''}`} id="container">
 
-                {/* --- 注册面板 --- */}
+                {/* --- Sign Up Panel --- */}
                 <div className="form-container sign-up-container">
                     <form onSubmit={handleSignUpSubmit}>
                         <h1>Create Account</h1>
@@ -186,12 +186,12 @@ export default function AuthPage() {
                     </form>
                 </div>
 
-                {/* --- 登录/重置面板 --- */}
+                {/* --- Sign In / Reset Panel --- */}
                 <div className="form-container sign-in-container">
                     <form onSubmit={isResetMode ? handleResetSubmit : handleSignInSubmit}>
 
                         {isResetMode ? (
-                            // === 🟢 真实的重置密码界面 (只输入邮箱) ===
+                            // === 🟢 Password Reset Interface (Email only) ===
                             <>
                                 <h1>Reset Password</h1>
                                 <p style={{fontSize: '13px', color: '#666', margin: '10px 0 20px', maxWidth: '280px'}}>
@@ -216,7 +216,7 @@ export default function AuthPage() {
                                 </a>
                             </>
                         ) : (
-                            // === 正常登录界面 ===
+                            // === Standard Login Interface ===
                             <>
                                 <h1>Sign in</h1>
                                 <div style={{height: '20px'}}></div>
@@ -247,7 +247,7 @@ export default function AuthPage() {
                     </form>
                 </div>
 
-                {/* --- 覆盖层 (Overlay) --- */}
+                {/* --- Overlay --- */}
                 <div className="overlay-container">
                     <div className="overlay">
                         <div className="overlay-panel overlay-left">
