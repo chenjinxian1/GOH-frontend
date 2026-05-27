@@ -17,7 +17,7 @@
   <img src="./assets/goh-preview.gif" alt="Guardians of Health Preview" width="100%" />
 </p>
 
-> Screenshot/GIF placeholder: add a homepage preview at `goh-frontend/assets/goh-preview.gif` when available.
+> Project preview generated from the demo video and stored at `assets/goh-preview.gif`.
 
 ## Overview
 
