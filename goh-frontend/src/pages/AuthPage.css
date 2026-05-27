@@ -7,7 +7,9 @@
 
 /* Page Centered Background */
 .auth-body {
-    background: #f6f5f7;
+    background:
+        radial-gradient(circle at top left, rgba(102, 231, 255, 0.18), transparent 34%),
+        linear-gradient(135deg, #eef7fb 0%, #f8fbff 55%, #e7f0fb 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,8 +24,7 @@
 .container {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-    0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 24px 70px rgba(17, 32, 90, 0.16);
     position: relative;
     overflow: hidden;
 
@@ -60,8 +61,8 @@
 
 .container button {
     border-radius: 20px;
-    border: 1px solid #111827; /* Using your theme's dark color */
-    background-color: #111827;
+    border: 1px solid #0f71a8;
+    background: linear-gradient(135deg, #0f71a8, #0ea5e9);
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -97,12 +98,46 @@
     text-align: center;
 }
 
+.auth-form-subtitle {
+    color: #64748b;
+    max-width: 300px;
+}
+
 .container input {
-    background-color: #eee;
-    border: none;
+    background-color: #f4f8fc;
+    border: 1px solid #dbe7f2;
+    border-radius: 10px;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+}
+
+.container input:focus {
+    outline: none;
+    border-color: #66e7ff;
+    box-shadow: 0 0 0 3px rgba(102, 231, 255, 0.18);
+    background: #ffffff;
+}
+
+.auth-message {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.auth-message.error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.auth-message.success {
+    color: #075985;
+    background: #ecfeff;
+    border: 1px solid #bae6fd;
 }
 
 /* === 🟢 Core Layout & Animation (Stable version for the most error-prone parts) === */
@@ -165,9 +200,9 @@
 
 /* Overlay Background: Double width, handles internal content movement */
 .overlay {
-    background: #111827; /* Theme dark color */
-    background: -webkit-linear-gradient(to right, #1f2937, #111827);
-    background: linear-gradient(to right, #1f2937, #111827);
+    background: #11205a;
+    background: -webkit-linear-gradient(to right, #18306e, #11205a);
+    background: linear-gradient(to right, #18306e, #11205a);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

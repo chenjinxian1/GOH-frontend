@@ -1,56 +1,51 @@
-// src/pages/MyFavoritesPage.tsx
-import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { auth, db } from '../firebase/config';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { FavoriteButton } from '../components/FavoriteButton';
 import './MyFavoritesPage.css';
 
+const FAVORITES_KEY = 'goh_favorites';
+
 interface FavItem {
-    id: string; // doc ID
+    id: string;
+    userId: string;
     articleId: string;
     title: string;
     type: 'health' | 'disease';
     imageUrl?: string;
     category?: string;
+    timestamp?: string;
 }
 
+const readFavorites = (): FavItem[] => {
+    try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]') as FavItem[];
+    } catch (error) {
+        console.error('Failed to parse local favorites:', error);
+        return [];
+    }
+};
+
 export default function MyFavoritesPage() {
+    const { currentUser } = useAuth();
     const [favorites, setFavorites] = useState<FavItem[]>([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user = auth.currentUser;
-        if (!user) {
+        if (!currentUser) {
             navigate('/login');
             return;
         }
 
-        const fetchFavs = async () => {
-            try {
-                const q = query(
-                    collection(db, "User_Favorites"),
-                    where("userId", "==", user.uid),
-                    orderBy("timestamp", "desc")
-                );
-                const snapshot = await getDocs(q);
-                const data = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                })) as FavItem[];
-                setFavorites(data);
-            } catch (err) {
-                console.error("Error fetching favorites:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const data = readFavorites()
+            .filter((item) => item.userId === currentUser.uid)
+            .sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+        setFavorites(data);
+        setLoading(false);
+    }, [currentUser, navigate]);
 
-        fetchFavs();
-    }, [navigate]);
-
-    if (loading) return <div style={{textAlign:'center', padding:'60px'}}>Loading...</div>;
+    if (loading) return <div style={{ textAlign: 'center', padding: '60px' }}>Loading...</div>;
 
     return (
         <div className="fav-page-container">
@@ -60,17 +55,14 @@ export default function MyFavoritesPage() {
             </header>
 
             {favorites.length > 0 ? (
-                // 🟢 Using the same layout class as Health Science
                 <div className="fav-list-layout">
                     {favorites.map(item => (
                         <div key={item.id} className="fav-card-wrapper">
-                            {/* Link Logic: Determine path based on type */}
                             <Link
                                 to={item.type === 'disease' ? `/disease/${item.articleId}` : `/health/${item.articleId}`}
                                 className="fav-card-link"
                             >
                                 <article className="fav-article-card">
-                                    {/* Left Side: Image */}
                                     <div className="fav-image-wrapper">
                                         <img
                                             src={item.imageUrl || '/placeholder.png'}
@@ -81,7 +73,6 @@ export default function MyFavoritesPage() {
                                         </span>
                                     </div>
 
-                                    {/* Right Side: Content */}
                                     <div className="fav-content">
                                         <h3>{item.title}</h3>
                                         <p className="fav-type-label">
@@ -92,13 +83,13 @@ export default function MyFavoritesPage() {
                                 </article>
                             </Link>
 
-                            {/* Floating Button */}
                             <div className="floating-fav-btn">
                                 <FavoriteButton
                                     articleId={item.articleId}
                                     title={item.title}
                                     type={item.type}
                                     imageUrl={item.imageUrl}
+                                    category={item.category}
                                 />
                             </div>
                         </div>

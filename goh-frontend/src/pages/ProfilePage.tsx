@@ -1,85 +1,78 @@
-// src/pages/ProfilePage.tsx
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { doc, updateDoc } from 'firebase/firestore';
-import { updatePassword } from 'firebase/auth';
-import { db } from '../firebase/config';
-import { useNavigate } from 'react-router-dom';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
-    const { currentUser, userProfile, refreshProfile } = useAuth();
-    const navigate = useNavigate();
+    const { currentUser, userProfile, updateLocalProfile, updateLocalPassword } = useAuth();
 
-    // State management
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
-
-    // Password states
     const [newPass, setNewPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
+    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
     useEffect(() => {
-        if (!currentUser) {
-            navigate('/login');
-            return;
-        }
         if (userProfile) {
             setName(userProfile.name || '');
             setAge(userProfile.age || '');
             setGender(userProfile.gender || 'Not Specified');
         }
-    }, [currentUser, userProfile, navigate]);
+    }, [userProfile]);
 
-    // Get initials for the avatar placeholder
     const getInitials = () => {
         return name ? name.charAt(0).toUpperCase() : 'U';
     };
 
     const handleSaveProfile = async () => {
-        if (!currentUser) return;
+        setMessage(null);
         try {
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                name,
-                age,
-                gender
-            });
-            await refreshProfile();
+            await updateLocalProfile({ name, age, gender });
             setIsEditing(false);
-            alert("✅ Profile updated successfully!");
+            setMessage({ type: 'success', text: 'Profile updated successfully.' });
         } catch (error) {
-            console.error(error);
-            alert("❌ Failed to update profile.");
+            setMessage({ type: 'error', text: error instanceof Error ? error.message : 'Failed to update profile.' });
         }
     };
 
     const handleChangePassword = async () => {
+        setMessage(null);
         if (!newPass) return;
         if (newPass !== confirmPass) {
-            alert("❌ Passwords do not match!");
+            setMessage({ type: 'error', text: 'Passwords do not match.' });
             return;
         }
-        if (!currentUser) return;
 
         try {
-            await updatePassword(currentUser, newPass);
-            alert("✅ Password changed successfully!");
+            await updateLocalPassword(newPass);
             setNewPass('');
             setConfirmPass('');
-        } catch (error: any) {
-            alert("❌ Error: " + error.message);
+            setMessage({ type: 'success', text: 'Password changed successfully.' });
+        } catch (error) {
+            setMessage({ type: 'error', text: error instanceof Error ? error.message : 'Failed to update password.' });
         }
     };
 
-    if (!userProfile) return <div className="loading-screen">Loading Profile...</div>;
+    if (!currentUser || !userProfile) {
+        return (
+            <div className="profile-page-container">
+                <div className="section-card profile-login-prompt">
+                    <h1 className="page-title">Manage Account</h1>
+                    <p>Please log in to view your profile.</p>
+                    <Link className="btn-save profile-login-link" to="/login">Go to Login</Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="profile-page-container">
             <h1 className="page-title">Manage Account</h1>
 
-            {/* 1. Profile Overview */}
+            {message && <div className={`profile-message ${message.type}`}>{message.text}</div>}
+
             <div className="profile-header-card">
                 {userProfile.photoURL ? (
                     <img src={userProfile.photoURL} alt="Avatar" className="header-avatar" />
@@ -89,17 +82,17 @@ export default function ProfilePage() {
                 <div className="header-info">
                     <h2>{name || 'User'}</h2>
                     <p>{userProfile.email}</p>
-                    <span className="header-role-badge">Member</span>
+                    <p>Created: {new Date(userProfile.createdAt).toLocaleString()}</p>
+                    <span className="header-role-badge">Local Demo Member</span>
                 </div>
             </div>
 
-            {/* 2. Personal Information Settings */}
             <div className="section-card">
                 <div className="card-header">
                     <h3>Personal Information</h3>
                     {!isEditing && (
                         <button className="btn-edit" onClick={() => setIsEditing(true)}>
-                            ✏️ Edit Profile
+                            Edit Profile
                         </button>
                     )}
                 </div>
@@ -107,12 +100,7 @@ export default function ProfilePage() {
                 <div className="form-grid">
                     <div className="form-group full-width">
                         <label className="form-label">Email Address</label>
-                        <input
-                            type="text"
-                            className="form-input"
-                            value={userProfile.email}
-                            disabled
-                        />
+                        <input type="text" className="form-input" value={userProfile.email} disabled />
                     </div>
 
                     <div className="form-group">
@@ -163,7 +151,6 @@ export default function ProfilePage() {
                 )}
             </div>
 
-            {/* 3. Security Settings */}
             <div className="section-card">
                 <div className="card-header">
                     <h3>Security & Password</h3>
@@ -194,7 +181,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-                    <div style={{width: '200px'}}>
+                    <div style={{ width: '200px' }}>
                         <button className="btn-update-pass" onClick={handleChangePassword}>
                             Update Password
                         </button>

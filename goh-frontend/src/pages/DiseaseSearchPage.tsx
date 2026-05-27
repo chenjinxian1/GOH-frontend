@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { FavoriteButton } from '../components/FavoriteButton';
+import { localDiseases } from '../data/localContent';
 import './DiseaseSearchPage.css';
 
 interface DiseaseItem {
@@ -43,6 +44,7 @@ export default function DiseaseSearchPage() {
                 setDiseases(data);
             } catch (error) {
                 console.error("Error fetching diseases:", error);
+                setDiseases(localDiseases);
             } finally {
                 setIsLoading(false);
             }

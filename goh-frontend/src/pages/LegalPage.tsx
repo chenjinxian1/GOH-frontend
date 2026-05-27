@@ -19,7 +19,7 @@ const LegalPage: React.FC = () => {
 
                 <section>
                     <h2>1. Accuracy of AI Content</h2>
-                    <p>Our services use Artificial Intelligence (Google Gemini) to generate responses. While we strive for accuracy, AI can occasionally produce incorrect, misleading, or biased information ("hallucinations"). We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information.</p>
+                    <p>Our services use a configured language model service to generate responses. While we strive for accuracy, AI can occasionally produce incorrect, misleading, or biased information ("hallucinations"). We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information.</p>
                 </section>
 
                 <section>

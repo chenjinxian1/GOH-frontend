@@ -1,24 +1,20 @@
-// src/firebase/config.ts
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"; // Database
-import { getAuth } from "firebase/auth";           // 🟢 Added: Authentication service
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Do not keep "......", otherwise it will throw an "Invalid API Key" error
+// Firebase config is read from local environment variables only.
+// Do not commit real Firebase project values to GitHub.
 const firebaseConfig = {
-    apiKey: "AIzaSyARwcZ_4SV_0HbLe0umeT-WkjCQk-kvCmw",
-    authDomain: "goh-frontend.firebaseapp.com",
-    projectId: "goh-frontend",
-    storageBucket: "goh-frontend.firebasestorage.app",
-    messagingSenderId: "667091169322",
-    appId: "1:667091169322:web:fbd520888b4b51b32b9353",
-    measurementId: "G-C8HXCHHZQN"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+    appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "",
 };
 
-// 1. Initialize Firebase App
 const app = initializeApp(firebaseConfig);
 
-// 2. Export database instance (used for articles, disease information)
 export const db = getFirestore(app);
-
-// 3. 🟢 Export auth instance (used for login, registration, password changes)
 export const auth = getAuth(app);

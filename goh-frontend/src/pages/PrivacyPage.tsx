@@ -28,7 +28,7 @@ const PrivacyPage: React.FC = () => {
                     <h2>3. How We Use Your Data</h2>
                     <p>We use your data primarily to provide the AI health assistant service. Specifically:</p>
                     <ul>
-                        <li>Your chat messages are sent to <strong>Google Gemini API</strong> to generate health responses.</li>
+                        <li>Your chat messages are sent to the <strong>configured language model service</strong> to generate health education responses.</li>
                         <li>Your chat history is stored securely on <strong>Google Firebase</strong> so you can access it later.</li>
                         <li>We do not sell your personal data to third parties.</li>
                     </ul>

@@ -1,166 +1,208 @@
 /* src/components/layout/Footer.css */
 
 .footer {
-    border-top: 1px solid #e5e7eb;
-    background: #ffffff;
-    margin-top: 40px;
-
-    /* Added: Set scroll snap alignment */
-    /* Use 'end' to align the bottom of the footer with the bottom of the screen.
-       This allows the footer to appear naturally in long pages without forcing empty space. */
+    position: relative;
+    margin-top: 0;
+    border-top: 1px solid rgba(148, 163, 184, 0.24);
+    background:
+        linear-gradient(180deg, rgba(220, 235, 255, 0.42) 0%, #f4f8fc 18%, #edf4fb 100%);
+    color: #1e2f54;
     scroll-snap-align: end;
 }
 
-.footer-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 20px 16px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 32px;
+.footer::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102, 231, 255, 0.65), transparent);
+    pointer-events: none;
 }
 
-/* Left side: logo + text */
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 42px 24px 28px;
+    display: grid;
+    grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: clamp(36px, 6vw, 72px);
+}
+
 .footer-left {
     display: flex;
-    align-items: center;   /* Key: center text and logo vertically */
-    gap: 20px;             /* Add spacing for better visual balance */
+    align-items: center;
+    gap: 22px;
 }
+
 .footer-logos {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    flex: 0 0 auto;
 }
 
-/* Control logo size without stretching */
 .footer-logo-img {
-    height: 80px;        /* Can be adjusted to 80 or 90 if a larger size is needed */
-    width: auto;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 14px 34px rgba(30, 47, 84, 0.08);
+    padding: 8px;
+}
+
+.footer-logo-img:nth-child(2) {
+    background: linear-gradient(135deg, rgba(102, 231, 255, 0.16), rgba(125, 211, 252, 0.08));
+    border-color: rgba(14, 165, 233, 0.18);
 }
 
 .footer-project-text {
-    max-width: 260px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* Key: center the three lines of text within the height */
+    max-width: 300px;
 }
 
 .footer-project-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
+    color: #0b153f;
+    font-size: 1.18rem;
+    font-weight: 850;
+    letter-spacing: 0;
+    margin-bottom: 7px;
 }
 
 .footer-project-tagline {
-    font-size: 14px;
-    color: #4b5563;
-    margin-bottom: 6px;
+    color: #52627a;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
 }
 
 .footer-project-feedback {
-    font-size: 13px;
-    color: #2563eb;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #0369a1;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: color 160ms ease, transform 160ms ease;
 }
 
-/* Right side: 2x2 member grid */
+.footer-project-feedback:hover {
+    color: #0ea5e9;
+    transform: translateX(2px);
+}
+
 .footer-right {
-    flex: 1;
+    min-width: 0;
 }
 
 .footer-column-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    color: #0b153f;
+    font-size: 0.92rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
 }
 
 .footer-members-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px 32px;
+    gap: 18px 34px;
+}
+
+.footer-member {
+    min-width: 0;
 }
 
 .footer-member-name {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 2px;
+    color: #1e2f54;
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 5px;
 }
 
 .footer-member-line {
-    font-size: 13px;
-    color: #4b5563;
+    color: #607086;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
 }
 
-/* Bottom copyright text */
-.footer-bottom {
-    border-top: 1px solid #e5e7eb;
-    font-size: 12px;
-    color: #9ca3af;
-    text-align: center;
-    padding: 8px 12px 10px;
-}
-/* 🟢 Updated footer-bottom styles */
 .footer-bottom {
     max-width: 1200px;
-    margin: 40px auto 0;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-
-    /* Use Flex to separate copyright info and links or center them */
+    margin: 0 auto;
+    padding: 18px 24px 24px;
+    border-top: 1px solid rgba(148, 163, 184, 0.22);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
-
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
-/* If the screen is wide enough, align them side by side */
-@media (min-width: 768px) {
-    .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-    }
+    justify-content: space-between;
+    gap: 18px;
+    color: #607086;
+    font-size: 0.86rem;
 }
 
 .footer-legal-links {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .footer-legal-links a {
-    color: #6b7280;
+    color: #315c86;
+    font-weight: 700;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 160ms ease;
 }
 
 .footer-legal-links a:hover {
-    color: #2563eb;
+    color: #0284c7;
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .footer-separator {
-    color: #d1d5db;
+    color: rgba(96, 112, 134, 0.5);
     font-size: 0.8rem;
 }
 
-/* Mobile responsive: stack vertically + change member grid to single column */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-inner {
+        padding: 34px 18px 24px;
+    }
+
+    .footer-left {
+        align-items: flex-start;
+        gap: 16px;
     }
 
     .footer-logo-img {
-        height: 48px;
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        padding: 6px;
     }
 
     .footer-members-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 16px;
+    }
+
+    .footer-bottom {
+        padding: 16px 18px 22px;
     }
 }

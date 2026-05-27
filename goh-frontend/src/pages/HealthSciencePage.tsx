@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { FavoriteButton } from '../components/FavoriteButton';
+import { localArticles } from '../data/localContent';
 import './HealthSciencePage.css';
 
 interface Article {
@@ -35,6 +36,7 @@ export default function HealthSciencePage() {
                 setArticles(articlesData);
             } catch (error) {
                 console.error("Error fetching articles:", error);
+                setArticles(localArticles);
             } finally {
                 setIsLoading(false);
             }

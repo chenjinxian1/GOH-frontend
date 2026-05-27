@@ -242,3 +242,32 @@
     gap: 15px;
     justify-content: flex-end;
 }
+
+.profile-message {
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.profile-message.success {
+    color: #075985;
+    background: #ecfeff;
+    border: 1px solid #bae6fd;
+}
+
+.profile-message.error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.profile-login-prompt {
+    text-align: center;
+}
+
+.profile-login-link {
+    display: inline-flex;
+    text-decoration: none;
+    margin-top: 16px;
+}

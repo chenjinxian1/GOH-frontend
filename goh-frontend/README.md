@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Guardians of Health Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Guardians of Health is a React, TypeScript, and Vite frontend for health education, disease information, AI-powered guidance, and health data visualization.
 
-Currently, two official plugins are available:
+## Environment Variables
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create a local `.env` or `.env.local` file before running the AI Assistant. Do not commit real API keys.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_LLM_PROVIDER=openai-compatible
+VITE_LLM_API_BASE_URL=https://api.openai.com/v1
+VITE_LLM_API_KEY=your_api_key_here
+VITE_LLM_MODEL=gpt-4o-mini
+VITE_LLM_TEMPERATURE=0.7
+VITE_LLM_MAX_TOKENS=800
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Provider examples:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```env
+# OpenAI
+VITE_LLM_API_BASE_URL=https://api.openai.com/v1
+VITE_LLM_MODEL=gpt-4o-mini
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# DeepSeek
+VITE_LLM_API_BASE_URL=https://api.deepseek.com/v1
+VITE_LLM_MODEL=deepseek-chat
+
+# Qwen / DashScope OpenAI-compatible
+VITE_LLM_API_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+VITE_LLM_MODEL=qwen-plus
+
+# Moonshot
+VITE_LLM_API_BASE_URL=https://api.moonshot.cn/v1
+VITE_LLM_MODEL=moonshot-v1-8k
+
+# Local Ollama OpenAI-compatible
+VITE_LLM_API_BASE_URL=http://localhost:11434/v1
+VITE_LLM_API_KEY=ollama
+VITE_LLM_MODEL=llama3.1
+```
+
+This frontend-only demo uses Vite environment variables. Values prefixed with `VITE_` are exposed in the browser, so do not use production API keys in public deployments. For production, use a backend proxy such as:
+
+```text
+Frontend -> Backend /api/chat -> LLM Provider
+```
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
 ```

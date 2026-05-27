@@ -1,19 +1,19 @@
 // src/components/layout/Navbar.tsx
 import { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { auth } from '../../firebase/config';
-import { signOut } from 'firebase/auth';
 import './Navbar.css';
 
 // 🟢 1. Import the logo image from the assets folder based on your screenshot
 import logoImage from '../../assets/logo-goh.png';
 
 export default function Navbar() {
-    const { currentUser, userProfile } = useAuth();
+    const { currentUser, userProfile, logout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const isHome = location.pathname === '/';
 
     // Toggle dropdown
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -31,7 +31,7 @@ export default function Navbar() {
 
     const handleSignOut = async () => {
         try {
-            await signOut(auth);
+            await logout();
             navigate('/login');
         } catch (error) {
             console.error("Error signing out:", error);
@@ -43,8 +43,13 @@ export default function Navbar() {
         ? userProfile.name.charAt(0).toUpperCase()
         : currentUser?.email?.charAt(0).toUpperCase();
 
+    const isActive = (path: string) => {
+        if (path === '/') return location.pathname === '/';
+        return location.pathname.startsWith(path);
+    };
+
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${isHome ? 'navbar-home' : 'navbar-standard'}`}>
             {/* 1. Left: Logo (Updated src) */}
             <div className="navbar-left">
                 <Link to="/" className="navbar-logo">
@@ -56,11 +61,11 @@ export default function Navbar() {
 
             {/* 2. Center: Navigation Links */}
             <div className="navbar-center">
-                <Link to="/" className="nav-link">Home</Link>
-                <Link to="/ai-assistant" className="nav-link">AI Assistant</Link>
-                <Link to="/science" className="nav-link">Health Science</Link>
-                <Link to="/diseases" className="nav-link">Disease Info</Link>
-                <Link to="/data-viz" className="nav-link">Data Viz</Link>
+                <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
+                <Link to="/ai-assistant" className={`nav-link ${isActive('/ai-assistant') ? 'active' : ''}`}>AI Assistant</Link>
+                <Link to="/science" className={`nav-link ${isActive('/science') || isActive('/articles') ? 'active' : ''}`}>Health Science</Link>
+                <Link to="/diseases" className={`nav-link ${isActive('/diseases') || isActive('/disease') ? 'active' : ''}`}>Diseases</Link>
+                <Link to="/data-viz" className={`nav-link ${isActive('/data-viz') ? 'active' : ''}`}>Data Visualization</Link>
             </div>
 
             {/* 3. Right: User & Auth */}

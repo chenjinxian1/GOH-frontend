@@ -192,7 +192,7 @@ export default function AIAssistantPage() {
         <div className="ai-page-container">
             <header className="ai-header">
                 <h1>AI Health Assistant</h1>
-                <p>Describe your symptoms, and our AI will guide you to potential causes.</p>
+                <p>Ask general health questions and get educational guidance in a clear, cautious way.</p>
             </header>
 
             <div className="ai-content-wrapper">
@@ -252,7 +252,7 @@ export default function AIAssistantPage() {
                             <div key={index} className={`message-wrapper ${msg.role === 'ai' ? 'bot' : 'user'}`}>
                                 {msg.role === 'ai' && <div className="avatar bot-avatar">🤖</div>}
                                 <div className="message-content-col">
-                                    {msg.role === 'ai' && index === 0 && <div className="bot-header">Smart Doctor <span className="status-badge">ONLINE</span></div>}
+                                    {msg.role === 'ai' && index === 0 && <div className="bot-header">GOH Assistant <span className="status-badge">ONLINE</span></div>}
 
                                     {/* Markdown Rendered Content */}
                                     <div className={`bubble-content ${msg.role === 'ai' ? 'markdown-body' : ''}`}>

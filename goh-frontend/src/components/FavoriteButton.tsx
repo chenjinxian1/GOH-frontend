@@ -1,80 +1,97 @@
-// src/components/FavoriteButton.tsx
-import React, { useState, useEffect } from 'react';
-import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../firebase/config';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+
+const FAVORITES_KEY = 'goh_favorites';
 
 interface FavoriteButtonProps {
     articleId: string;
     title: string;
-    type: 'health' | 'disease'; // Needed for linking back correctly
+    type: 'health' | 'disease';
     imageUrl?: string;
     category?: string;
-    className?: string; // To allow custom positioning (bottom-right etc)
+    className?: string;
 }
 
+interface LocalFavorite {
+    id: string;
+    userId: string;
+    articleId: string;
+    title: string;
+    type: 'health' | 'disease';
+    imageUrl?: string;
+    category?: string;
+    timestamp: string;
+}
+
+const readFavorites = (): LocalFavorite[] => {
+    try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]') as LocalFavorite[];
+    } catch (error) {
+        console.error('Failed to parse local favorites:', error);
+        return [];
+    }
+};
+
+const writeFavorites = (favorites: LocalFavorite[]) => {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+};
+
 export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
-                                                                  articleId,
-                                                                  title,
-                                                                  type,
-                                                                  imageUrl,
-                                                                  category,
-                                                                  className
-                                                              }) => {
+    articleId,
+    title,
+    type,
+    imageUrl,
+    category,
+    className
+}) => {
+    const { currentUser } = useAuth();
     const [isFavorited, setIsFavorited] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Check status on load
     useEffect(() => {
-        const checkStatus = async () => {
-            const user = auth.currentUser;
-            if (!user) return;
+        if (!currentUser) {
+            setIsFavorited(false);
+            return;
+        }
 
-            // Create a unique ID: userId_articleId
-            const docRef = doc(db, "User_Favorites", `${user.uid}_${articleId}`);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                setIsFavorited(true);
-            }
-        };
-        checkStatus();
-    }, [articleId]);
+        const docId = `${currentUser.uid}_${articleId}`;
+        setIsFavorited(readFavorites().some((favorite) => favorite.id === docId));
+    }, [articleId, currentUser]);
 
-    const toggleFavorite = async (e: React.MouseEvent) => {
-        // Prevent parent onClick (e.g., if the card is a link)
+    const toggleFavorite = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
 
-        const user = auth.currentUser;
-        if (!user) {
+        if (!currentUser) {
             alert("Please log in to bookmark articles.");
             return;
         }
 
         setLoading(true);
-        const docId = `${user.uid}_${articleId}`;
-        const docRef = doc(db, "User_Favorites", docId);
+        const docId = `${currentUser.uid}_${articleId}`;
+        const favorites = readFavorites();
 
-        try {
-            if (isFavorited) {
-                await deleteDoc(docRef);
-                setIsFavorited(false);
-            } else {
-                await setDoc(docRef, {
-                    userId: user.uid,
+        if (isFavorited) {
+            writeFavorites(favorites.filter((favorite) => favorite.id !== docId));
+            setIsFavorited(false);
+        } else {
+            writeFavorites([
+                ...favorites,
+                {
+                    id: docId,
+                    userId: currentUser.uid,
                     articleId,
                     title,
                     type,
                     imageUrl: imageUrl || '',
                     category: category || 'General',
-                    timestamp: serverTimestamp()
-                });
-                setIsFavorited(true);
-            }
-        } catch (error) {
-            console.error("Error updating favorite:", error);
-        } finally {
-            setLoading(false);
+                    timestamp: new Date().toISOString(),
+                },
+            ]);
+            setIsFavorited(true);
         }
+
+        setLoading(false);
     };
 
     return (
@@ -103,7 +120,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
                 color: isFavorited ? '#ef4444' : '#9ca3af',
                 lineHeight: 1
             }}>
-                {isFavorited ? '❤️' : '🤍'}
+                {isFavorited ? '♥' : '♡'}
             </span>
         </button>
     );

@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import ReactMarkdown from 'react-markdown';
 import { FavoriteButton } from '../components/FavoriteButton'; // ✅ Import FavoriteButton
+import { findLocalContent } from '../data/localContent';
 import './ArticleDetailPage.css';
 
 interface ArticleData {
@@ -41,9 +42,11 @@ export default function ArticleDetailPage() {
                     setArticle(docSnap.data() as ArticleData);
                 } else {
                     console.log(`No such document in ${collectionName}!`);
+                    setArticle(findLocalContent(collectionName, id));
                 }
             } catch (error) {
                 console.error("Error fetching article:", error);
+                setArticle(findLocalContent(collectionName, id));
             } finally {
                 setLoading(false);
             }
