@@ -5,12 +5,12 @@
 </p>
 
 <p align="center">
-  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=06142f" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" />
-  <img alt="Healthcare Education" src="https://img.shields.io/badge/Healthcare-Education-22c8e5" />
-  <img alt="AI Assistant" src="https://img.shields.io/badge/AI-Assistant-7dd3fc" />
-  <img alt="OpenAI-compatible LLM" src="https://img.shields.io/badge/LLM-OpenAI--compatible-0f766e" />
+  <a href="https://react.dev/learn" title="Read the official React guide"><img alt="React 19 documentation" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=06142f" /></a>
+  <a href="https://www.typescriptlang.org/docs/" title="Read the official TypeScript documentation"><img alt="TypeScript 5 documentation" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" /></a>
+  <a href="https://vite.dev/guide/" title="Read the official Vite setup guide"><img alt="Vite 7 setup guide" src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" /></a>
+  <a href="#healthcare-education" title="Explore the health education pages and content"><img alt="Healthcare Education usage guide" src="https://img.shields.io/badge/Healthcare-Education-22c8e5" /></a>
+  <a href="#ai-assistant" title="Set up and use the AI Health Assistant"><img alt="AI Assistant usage guide" src="https://img.shields.io/badge/AI-Assistant-7dd3fc" /></a>
+  <a href="#llm-configuration" title="Configure an OpenAI-compatible model provider"><img alt="OpenAI-compatible LLM configuration" src="https://img.shields.io/badge/LLM-OpenAI--compatible-0f766e" /></a>
 </p>
 
 <p align="center">
@@ -61,6 +61,20 @@ This is suitable for:
 - **Feedback page**: project feedback collection interface.
 - **Academic footer and legal pages**: university/project branding, team section, privacy policy, and legal/medical disclaimer pages.
 - **Firebase-related structure preserved**: Firebase config, Firestore usage points, hosting config, and Firestore rules remain in the project, while real Firebase values are moved to local environment variables.
+
+## Explore the Project
+
+### Healthcare Education
+
+Follow the [quick start](#quick-start), then open `/science` to browse health articles, `/diseases` to search disease information, or `/data-viz` to explore health data. See the [complete route list](#application-routes) for more pages.
+
+To improve the educational material, start with the [local content](goh-frontend/src/data/localContent.ts) and preserve the [image source credits](goh-frontend/public/content-images/README.md). Content is for general education; see the [medical disclaimer](#medical-disclaimer).
+
+### AI Assistant
+
+Follow [LLM configuration](#llm-configuration), [start the app locally](#quick-start), and open `/ai-assistant` to ask a general health education question. Sending a question requires a configured provider endpoint, model, and any credentials required by that provider. Keep provider secrets out of public browser deployments; read the [API key warning](#frontend-api-key-warning).
+
+For development, see the [assistant page](goh-frontend/src/pages/AIAssistantPage.tsx) and [LLM client](goh-frontend/src/services/llmClient.ts). Treat responses as educational information rather than personal medical advice.
 
 ## Tech Stack
 
