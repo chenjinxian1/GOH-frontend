@@ -12,10 +12,11 @@ body:
     id: preparation
     attributes:
       label: Before reporting
+      description: Please read our [Code of Conduct](https://github.com/chenjinxian1/GOH-frontend/blob/main/CODE_OF_CONDUCT.md) before participating.
       options:
         - label: I searched existing issues for the same problem.
           required: true
-        - label: I agree to follow the project's [Code of Conduct](https://github.com/chenjinxian1/GOH-frontend/blob/main/CODE_OF_CONDUCT.md).
+        - label: I agree to follow the project's Code of Conduct.
           required: true
   - type: input
     id: location
