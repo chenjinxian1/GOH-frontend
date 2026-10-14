@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: mailto:chenjinxian443357848@student.usm.my?subject=GOH%20security%20report
+    about: Report vulnerabilities privately. Never post keys, passwords, or patient data in public issues.
+  - name: Setup and contribution guide
+    url: https://github.com/chenjinxian1/GOH-frontend/blob/main/CONTRIBUTING.md
+    about: Read the local setup, configuration, checks, and contribution process.

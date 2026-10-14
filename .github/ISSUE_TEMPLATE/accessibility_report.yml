@@ -1,0 +1,53 @@
+name: Accessibility report
+description: Tell us about a barrier to using GOH.
+title: "[Accessibility]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a barrier. English and Chinese reports are welcome.
+        See our [accessibility statement](https://github.com/chenjinxian1/GOH-frontend/blob/main/ACCESSIBILITY.md).
+        You do not need to disclose a disability or diagnosis. Screenshots and recordings are optional.
+        For a private report, email chenjinxian443357848@student.usm.my. Remove personal and health information from public reports.
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Community guidelines
+      options:
+        - label: I agree to follow the project's [Code of Conduct](https://github.com/chenjinxian1/GOH-frontend/blob/main/CODE_OF_CONDUCT.md).
+          required: true
+  - type: input
+    id: location
+    attributes:
+      label: Page or feature
+      placeholder: e.g. /login, profile menu, data visualization
+    validations:
+      required: true
+  - type: textarea
+    id: barrier
+    attributes:
+      label: What were you trying to do, and what blocked you?
+      description: Describe the expected result and the barrier you encountered.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Optional. Include the navigation or input sequence if you can.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and assistive technology
+      description: Optional. Share only what you are comfortable sharing.
+      placeholder: |
+        Browser/version:
+        OS/device:
+        Assistive technology/version:
+        Keyboard, touch, or other input:
+        Zoom level or display settings:
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround or further context
+      description: Optional. Tell us whether another way to complete the task worked. Redact private data from any attachments.

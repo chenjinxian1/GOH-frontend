@@ -60,6 +60,8 @@ Run all project commands from that folder.
 
 ## Getting Started
 
+Use Node.js 20.19+ or 22.12+ as required by Vite; Node.js 22.12+ or 24 is recommended. Use npm with the committed lockfile.
+
 ### 1. Clone the repository
 
 ```bash
@@ -70,7 +72,7 @@ cd GOH-frontend/goh-frontend
 ### 2. Install dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
 ### 3. Configure environment variables
@@ -305,6 +307,10 @@ npm run lint
 
 Run ESLint.
 
+## Community and Support
+
+See the repository's [contribution guide](../CONTRIBUTING.md), [Code of Conduct](../CODE_OF_CONDUCT.md), [security policy](../SECURITY.md), and [accessibility statement](../ACCESSIBILITY.md). Use the [issue templates](https://github.com/chenjinxian1/GOH-frontend/issues/new/choose) for bugs, suggestions, and accessibility reports. Report vulnerabilities privately through the security policy.
+
 ## License
 
-This project is currently provided for academic and demonstration purposes. Add a license file if the repository will be distributed as an open-source project.
+The project's original code and documentation are available under the [MIT License](../LICENSE). Third-party dependencies, images, university branding, external datasets, and embedded services retain their own terms. Existing image references are listed in [Content Image Sources](public/content-images/README.md); the Code of Conduct retains its Contributor Covenant attribution.

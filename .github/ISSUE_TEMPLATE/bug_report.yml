@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a reproducible problem with the GOH frontend.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve GOH. English and Chinese reports are welcome.
+        For vulnerabilities, follow [SECURITY.md](https://github.com/chenjinxian1/GOH-frontend/blob/main/SECURITY.md) instead.
+        Remove API keys, passwords, personal details, and health records from every field and attachment.
+  - type: checkboxes
+    id: preparation
+    attributes:
+      label: Before reporting
+      options:
+        - label: I searched existing issues for the same problem.
+          required: true
+        - label: I agree to follow the project's [Code of Conduct](https://github.com/chenjinxian1/GOH-frontend/blob/main/CODE_OF_CONDUCT.md).
+          required: true
+  - type: input
+    id: location
+    attributes:
+      label: Affected page or feature
+      placeholder: e.g. /science, /ai-assistant, local demo registration
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the page...
+        2. Use this fictional input...
+        3. Select...
+        4. Observe...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the visible error or result, with sensitive information removed.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include browser and version, operating system, device, commit or deployment URL, and Node.js version for local runs. Do not include secrets in configuration details.
+      placeholder: |
+        Browser/version:
+        OS/device:
+        Commit or deployment URL:
+        Node.js version (local runs):
+        AI/Firebase configuration relevant to this issue (no keys):
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots, logs, or other context
+      description: Optional. Redact private data before attaching screenshots or browser console output.

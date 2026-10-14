@@ -1,0 +1,48 @@
+name: Feature request
+description: Suggest a focused improvement to GOH.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English and Chinese suggestions are welcome. GOH is an educational prototype.
+        Do not include private health information or request personal diagnosis or treatment.
+  - type: checkboxes
+    id: preparation
+    attributes:
+      label: Before suggesting
+      options:
+        - label: I searched existing issues and pull requests for this suggestion.
+          required: true
+        - label: I agree to follow the project's [Code of Conduct](https://github.com/chenjinxian1/GOH-frontend/blob/main/CODE_OF_CONDUCT.md).
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and who it affects
+      description: Describe the task that is difficult today and the people who would benefit.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Explain the behavior or experience you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or current workarounds
+  - type: textarea
+    id: success
+    attributes:
+      label: How we can tell it works
+      description: Give a concrete example or acceptance criteria. For health content, include authoritative sources and their dates.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Optional mockups, examples, or references. Remove private data.

@@ -80,7 +80,7 @@ This is suitable for:
 
 ### Prerequisites
 
-- Node.js 20 or newer is recommended.
+- Node.js 20.19+ or 22.12+ is required by Vite; Node.js 22.12+ or 24 is recommended.
 - npm is used by the project lockfile.
 
 ### 1. Clone the repository
@@ -93,7 +93,7 @@ cd GOH-frontend/goh-frontend
 ### 2. Install dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
 ### 3. Configure environment variables
@@ -352,6 +352,14 @@ Guardians of Health is an academic healthcare education platform and frontend en
 
 The application footer includes university/USM branding, Guardians of Health branding, team member information, feedback access, privacy policy, and legal disclaimer links.
 
+## Community and Support
+
+- [Contributing](CONTRIBUTING.md): local setup, checks, and the pull request process. English and Chinese issues are welcome.
+- [Code of Conduct](CODE_OF_CONDUCT.md): community standards and a private reporting contact.
+- [Security Policy](SECURITY.md): private vulnerability reporting and known demo limitations.
+- [Accessibility Statement](ACCESSIBILITY.md): accessibility goals, known barriers, and how to report them.
+- [Report a bug, request a feature, or report an accessibility barrier](https://github.com/chenjinxian1/GOH-frontend/issues/new/choose).
+
 ## License
 
-No license file is currently included in this repository. Unless a license is added, this project should be treated as an education and research project rather than a formally licensed open-source package.
+The project's original code and documentation are available under the [MIT License](LICENSE). Third-party dependencies, images, university branding, external datasets, and embedded services remain subject to their own terms; see the [content image sources](goh-frontend/public/content-images/README.md) for existing image references. The Code of Conduct retains its Contributor Covenant attribution.
