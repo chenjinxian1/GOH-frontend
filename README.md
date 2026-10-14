@@ -1,6 +1,10 @@
 # Guardians of Health
 
 <p align="center">
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
+
+<p align="center">
   <strong>A modern healthcare education platform that combines health knowledge, disease information, AI-powered general guidance, and health data visualization.</strong>
 </p>
 
@@ -299,6 +303,7 @@ This authentication is not secure and is not intended for production. It exists 
 ```text
 GOH-frontend/
 ├── README.md                 # Repository-level GitHub documentation
+├── README.zh-CN.md           # Simplified Chinese documentation
 └── goh-frontend/             # Actual Vite frontend project
     ├── public/
     │   └── content-images/   # Local demo health images

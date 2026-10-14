@@ -1,6 +1,10 @@
 # Guardians of Health
 
 <p align="center">
+  <strong>English</strong> · <a href="../README.zh-CN.md">简体中文</a>
+</p>
+
+<p align="center">
   <strong>A modern healthcare education platform for exploring health knowledge, disease information, AI-powered general guidance, and health data visualization.</strong>
 </p>
 
