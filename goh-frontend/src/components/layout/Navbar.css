@@ -35,53 +35,6 @@
     flex-shrink: 0;
 }
 
-.language-switcher {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 4px;
-    min-height: 40px;
-    padding: 0 8px;
-    border: 1px solid rgba(220, 235, 255, 0.3);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #dcebff;
-    color-scheme: dark;
-    transition: border-color 160ms ease, background 160ms ease;
-}
-
-.language-switcher:hover {
-    border-color: #5debff;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.language-switcher:focus-within {
-    outline: 2px solid #5debff;
-    outline-offset: 3px;
-}
-
-.language-switcher select {
-    width: 88px;
-    min-height: 40px;
-    padding: 0 2px;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 0.82rem;
-    font-weight: 650;
-    cursor: pointer;
-}
-
-.language-switcher select:focus {
-    outline: none;
-}
-
-.language-switcher option {
-    background: #0b153f;
-    color: #f8fbff;
-}
-
 .navbar-right {
     justify-content: flex-end;
     gap: 16px;
@@ -416,69 +369,6 @@
     }
 
     .write-btn {
-        display: none;
-    }
-}
-
-@media (max-width: 1400px) {
-    .navbar-home {
-        padding-inline: 24px;
-        gap: 16px;
-    }
-
-    .navbar-home .navbar-center {
-        gap: 16px;
-    }
-
-    .navbar-home .nav-link {
-        font-size: 0.86rem;
-    }
-}
-
-@media (max-width: 1180px) {
-    .navbar-home .navbar-center {
-        display: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .navbar-home {
-        height: auto;
-        min-height: 64px;
-        flex-wrap: wrap;
-        padding: 12px 16px;
-        gap: 12px;
-    }
-
-    .navbar-home .navbar-logo span {
-        display: inline;
-        font-size: 0.92rem;
-    }
-
-    .navbar-home .navbar-right {
-        width: 100%;
-        gap: 10px;
-        justify-content: space-between;
-    }
-
-    .navbar-home .navbar-right-actions {
-        gap: 8px;
-    }
-
-    .navbar-home .nav-button {
-        min-height: 40px;
-        padding: 0 10px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-    }
-}
-
-@media (max-width: 360px) {
-    .navbar-home .language-switcher {
-        padding-inline: 6px;
-    }
-
-    .navbar-home .language-switcher svg {
         display: none;
     }
 }

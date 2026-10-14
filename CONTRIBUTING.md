@@ -40,12 +40,11 @@ Run these commands inside `goh-frontend/`:
 
 ```bash
 npm run lint
-npm test
 npm run build
 npm run preview
 ```
 
-`npm test` runs the homepage language preference regression tests using Node.js 22.12+ or 24. These checks cover default English, restoring a choice, persistence, and blocked storage; they do not replace the browser checks below. Do not report tests as passing when only a build was run. Existing lint findings may remain in untouched files: report their output, avoid adding new findings, and keep unrelated fixes in a separate contribution.
+The repository currently has no automated test script. Do not report tests as passing when only a build was run. Existing lint findings may remain in untouched files: report their output, avoid adding new findings, and keep unrelated fixes in a separate contribution.
 
 For a user-facing change, open the app and check the affected flow:
 

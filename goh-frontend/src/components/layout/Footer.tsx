@@ -1,8 +1,6 @@
 
 // src/components/layout/Footer.tsx
 import { Link } from 'react-router-dom';
-import { useHomeLanguage } from '../../context/HomeLanguageContext';
-import { homeCopy } from '../../i18n/homeCopy';
 import './Footer.css';
 
 // Ensure paths are correct
@@ -10,8 +8,6 @@ import usmLogo from '../../assets/usm-logo.png';
 import gohLogo from '../../assets/logo-goh.png';
 
 export default function Footer() {
-    const { language } = useHomeLanguage();
-    const copy = homeCopy[language];
     const year = new Date().getFullYear();
 
     return (
@@ -22,29 +18,31 @@ export default function Footer() {
                     <div className="footer-logos">
                         <img
                             src={usmLogo}
-                            alt={copy.universityLogo}
+                            alt="Universiti Sains Malaysia logo"
                             className="footer-logo-img"
                         />
                         <img
                             src={gohLogo}
-                            alt={copy.brandLogo}
+                            alt="Guardians of Health logo"
                             className="footer-logo-img"
                         />
                     </div>
 
                     <div className="footer-project-text">
-                        <div className="footer-project-title">{copy.brand}</div>
-                        <div className="footer-project-tagline">{copy.footerTagline}</div>
+                        <div className="footer-project-title">Guardians of Health</div>
+                        <div className="footer-project-tagline">
+                            We hope for a healthier tomorrow.
+                        </div>
 
                         <Link className="footer-project-feedback" to="/feedback">
-                            {copy.footerFeedback} →
+                            Share your feedback →
                         </Link>
                     </div>
                 </div>
 
                 {/* Right side: Team Member Information */}
                 <div className="footer-right">
-                    <div className="footer-column-title">{copy.footerTeam}</div>
+                    <div className="footer-column-title">Our Team Members</div>
                     <div className="footer-members-grid">
                         <div className="footer-member">
                             <div className="footer-member-name">Chen Jinxian</div>
@@ -82,13 +80,13 @@ export default function Footer() {
             {/* 🟢 Modified bottom bar: contains copyright info and legal links */}
             <div className="footer-bottom">
                 <div className="footer-copyright">
-                    © {year} {copy.brand} · {copy.footerCopyright}
+                    © {year} Guardians of Health · For education and research use only.
                 </div>
 
                 <div className="footer-legal-links">
-                    <Link to="/privacy-policy">{copy.footerPrivacy}</Link>
+                    <Link to="/privacy-policy">Privacy Policy</Link>
                     <span className="footer-separator">|</span>
-                    <Link to="/legal-notice">{copy.footerLegal}</Link>
+                    <Link to="/legal-notice">Legal Notice & Disclaimer</Link>
                 </div>
             </div>
         </footer>

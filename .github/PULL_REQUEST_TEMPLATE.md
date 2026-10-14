@@ -8,12 +8,11 @@
 
 ## Validation
 
-<!-- List the checks you actually ran, their outcomes, and any skipped or failing checks with reasons. Run app commands from goh-frontend/. npm test covers homepage language preferences; browser checks are still required for UI changes. For documentation-only changes, check links, paths, and examples. -->
+<!-- List the checks you actually ran, their outcomes, and any skipped or failing checks with reasons. Run app commands from goh-frontend/. There is currently no automated test script. For documentation-only changes, check links, paths, and examples. -->
 
 | Check | Outcome / evidence |
 | --- | --- |
 | `npm run lint` | |
-| `npm test` | |
 | `npm run build` | |
 | Relevant browser flow and error states | |
 | Keyboard, mobile, and accessibility checks (for UI changes) | |

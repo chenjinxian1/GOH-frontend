@@ -50,7 +50,6 @@ This is suitable for:
 ## Main Features
 
 - **Healthcare SaaS-style landing page**: redesigned homepage with modern visual storytelling, product mockups, hover states, animations, and clear calls to action.
-- **Homepage language choice**: choose English or 简体中文 in the homepage navigation. First visits use English; an explicit choice is remembered locally. Homepage content, navigation, and footer switch together. Other routes currently remain in English.
 - **AI Health Assistant**: conversational interface for general health education and wellness guidance.
 - **OpenAI-compatible LLM interface**: configurable through `.env` so the project can connect to OpenAI, DeepSeek, Qwen/DashScope, Moonshot, Ollama, or another compatible provider.
 - **Health Science Central**: educational health articles with local fallback content and image assets.
@@ -347,12 +346,6 @@ npm run lint
 ```
 
 Run ESLint.
-
-```bash
-npm test
-```
-
-Run the homepage language preference regression tests (Node.js 22.12+ or 24). Also check language switching, refresh, keyboard use, and mobile layout in the browser when changing the homepage.
 
 ## Medical Disclaimer
 
