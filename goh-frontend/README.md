@@ -36,6 +36,7 @@ Run all project commands from that folder.
 ## Key Features
 
 - **Healthcare SaaS-style homepage**: modern dark-blue interface, dashboard preview, animated cards, category exploration, and strong product navigation.
+- **Homepage language choice**: use English or 简体中文 from the homepage navigation. English is the default on first visit; an explicit choice is remembered locally. Homepage content, navigation, and footer are translated together. Other routes currently remain in English.
 - **AI Health Assistant**: conversational assistant powered by an OpenAI-compatible Chat Completions interface.
 - **Provider-flexible LLM client**: switch between OpenAI, DeepSeek, Qwen/DashScope, Moonshot, Ollama, or any OpenAI-compatible provider through environment variables.
 - **Health Science Library**: curated educational articles with image-backed local fallback content.
@@ -320,6 +321,12 @@ npm run lint
 ```
 
 Run ESLint.
+
+```bash
+npm test
+```
+
+Run homepage language preference regression tests with Node.js 22.12+ or 24. Verify language switching, refresh behavior, keyboard use, and responsive layouts in the browser as well.
 
 ## Community and Support
 

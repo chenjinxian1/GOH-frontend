@@ -1,3 +1,10 @@
+.saas-home,
+.saas-home *,
+.saas-home *::before,
+.saas-home *::after {
+    box-sizing: border-box;
+}
+
 .saas-home {
     --bg-0: #0b153f;
     --bg-1: #11205a;
@@ -187,6 +194,28 @@
 .hero-copy h1 span {
     color: var(--accent);
     text-shadow: 0 0 42px rgba(93, 235, 255, 0.36);
+}
+
+html[lang="zh-CN"] .saas-home,
+html[lang="zh-CN"] .navbar-home,
+html[lang="zh-CN"] .footer {
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+
+html[lang="zh-CN"] .hero-copy h1 {
+    font-size: clamp(3rem, 5.4vw, 4.75rem);
+    line-height: 1.22;
+    text-wrap: balance;
+}
+
+html[lang="zh-CN"] .saas-home .section-kicker,
+html[lang="zh-CN"] .saas-home .eyebrow {
+    letter-spacing: 0.06em;
+}
+
+html[lang="zh-CN"] .saas-home h2,
+html[lang="zh-CN"] .saas-home h3 {
+    line-height: 1.45;
 }
 
 .hero-copy p {
